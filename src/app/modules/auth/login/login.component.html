@@ -1,0 +1,48 @@
+<div class="container m-0">
+  <form class="" [formGroup]="loginForm">
+    <div class="row g-0">
+      <div class="col text-center p-2 mb-3">
+        <h1 class="h3m">Login</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+        />
+        <div class="form-text"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+        />
+        <div class="form-text"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 offset-4">
+        <div class="d-grid">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            (click)="handleSubmit()"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

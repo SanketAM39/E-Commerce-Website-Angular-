@@ -1,0 +1,52 @@
+<div class="profile">
+  <app-header></app-header>
+  <div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-7">
+        <div class="card p-3 py-4 border border-primary">
+          <h3 class="text-center">My Profile</h3>
+          <div class="text-center">
+            <img
+              src="../../../assets/Bean.jpeg"
+              alt="User"
+              width="150"
+              class="rounded-circle img-thumbnail img-fluid"
+            />
+          </div>
+          <div class="text-center mt-3">
+            <div *ngIf="userData.isEmailVerified; else elseBlock">
+              <span class="bg-success p-1 px-4 rounded text-white">
+                Verified
+                <!-- <mat-icon>check_circle_outline</mat-icon> -->
+              </span>
+            </div>
+            <ng-template #elseBlock>
+              <span class="bg-danger p-1 px-4 rounded text-white"
+                >Not Verified
+                <!-- <mat-icon >check_circle_outline</mat-icon> -->
+              </span>
+            </ng-template>
+
+            <h1 class="mt-2 mb-0">{{ userData.name }}</h1>
+            <h3 class="mt-0 mb-0 text-danger">
+              {{ userData.company }}
+            </h3>
+            <h5 class="mb-1 mt-1 text-secondary">Role : {{ userData.role }}</h5>
+            <span class="mt-0">{{ userData.email }}</span>
+            <div class="px-4 mt-1">
+              <p class="fonts"></p>
+            </div>
+            <div class="buttons">
+              <button class="btn btn-primary px-4 ms-3" (click)="logOut()">
+                Logout
+              </button>
+              <button class="btn btn-primary px-4 ms-3" routerLink="/company">
+                Company
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

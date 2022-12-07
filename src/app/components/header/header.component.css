@@ -1,0 +1,26 @@
+.navbar {
+  display: flex;
+  align-content: center;
+  padding: 1rem 0.5rem 1rem 2rem;
+  margin: 0%;
+}
+#temp {
+  display: flex;
+  align-content: center;
+  background: transparent;
+  color: black;
+  border: 1px solid #4158d0;
+  border-radius: 5px;
+  margin-right: 3rem;
+  padding: 0.5rem 1rem;
+}
+
+#temp:hover {
+  color: black;
+  background-color: #ffc72c;
+  border: 1px solid #ffc72c;
+}
+.dropdown-toggle::after {
+  margin-left: 0.455em;
+  margin-top: 0.555em;
+}
