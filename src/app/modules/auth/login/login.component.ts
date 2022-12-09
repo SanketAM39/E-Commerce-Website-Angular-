@@ -16,16 +16,18 @@ export class LoginComponent {
   ) {}
 
   loginForm!: FormGroup;
+  todayDate = new Date();
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['sanket@angularminds.in'],
       password: ['sanket898'],
+      captcha: ['captcha-token'],
     });
   }
 
   handleSubmit() {
     console.log(this.loginForm.value);
-    this.api.post('/auth/login?captcha=false', this.loginForm.value).subscribe({
+    this.api.post('/auth/login', this.loginForm.value).subscribe({
       next: (res: any) => {
         console.log(res);
         localStorage.setItem('User-Token', res.token);
@@ -36,6 +38,18 @@ export class LoginComponent {
       error: (err) => {
         console.log(err);
         alert('Error While Login');
+      },
+    });
+  }
+  handlePassChange() {
+    delete this.loginForm.value.password;
+    console.log(this.loginForm.value);
+    this.api.post('/auth/forgot-password', this.loginForm.value).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }

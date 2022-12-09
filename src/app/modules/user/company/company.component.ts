@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./company.component.css'],
 })
 export class CompanyComponent implements OnInit {
+  [x: string]: any;
   constructor(
     private api: ApiService,
     private router: Router,
@@ -18,6 +19,9 @@ export class CompanyComponent implements OnInit {
   users: any = [];
   createUserForm!: FormGroup;
   todayDate = new Date();
+  modalId: string = 'createUser';
+  modalTitle: string = 'Create User';
+  userIdUpdate!: string;
 
   ngOnInit(): void {
     this.getUser();
@@ -42,12 +46,14 @@ export class CompanyComponent implements OnInit {
   }
 
   handleCreate() {
+    this.modalId = 'createUser';
     console.log(this.createUserForm.value);
     this.api.post('/users', this.createUserForm.value).subscribe({
       next: (res: any) => {
         console.log(res);
         alert('Create Success!');
         this.getUser();
+        this.createUserForm.reset();
       },
       error: (err) => {
         console.log(err);
@@ -67,10 +73,61 @@ export class CompanyComponent implements OnInit {
     //   },
     // });
   }
-  handleupdate(user: any) {
-    console.log(user);
-    // this.createUserForm.removeControl('role');
+  handleModal() {
+    this.modalTitle = 'Create User';
+    if (this.modalId === 'updateUser || updateRole') {
+      this.modalId = 'createUser';
+      // this.modalTitle = 'Create User';
+    } else {
+      this.modalId = 'createUser';
+    }
+  }
+
+  getUserRole(user: any) {
+    this.modalId = 'updateRole';
+    this.modalTitle = 'Update Role';
+    this.userIdUpdate = user?._id;
+  }
+  getUserUpdate(user: any) {
+    this.modalTitle = 'Update User';
+    this.modalId = 'updateUser';
     this.createUserForm.controls['name'].setValue(user.name);
     this.createUserForm.controls['email'].setValue(user.email);
+    this.createUserForm.controls['password'].setValue('');
+    delete this.createUserForm.value.role;
+    console.log(this.createUserForm.value);
+    this.userIdUpdate = user?._id;
+    console.log(this.userIdUpdate);
+  }
+  handleRoleUpdate() {
+    delete this.createUserForm.value.name;
+    delete this.createUserForm.value.email;
+    delete this.createUserForm.value.password;
+    this.api
+      .patch(`/users/role/`, this.userIdUpdate, this.createUserForm.value)
+      .subscribe({
+        next: (res) => {
+          this.createUserForm.reset();
+          this.getUser();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  handleUpdate() {
+    delete this.createUserForm.value.role;
+    this.api
+      .patch('/users/', this.userIdUpdate, this.createUserForm.value)
+      .subscribe({
+        next: (res) => {
+          this.createUserForm.reset();
+          this.getUser();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 }

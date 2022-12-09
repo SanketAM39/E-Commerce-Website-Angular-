@@ -4,6 +4,7 @@
     class="btn btn-warning m-3"
     data-bs-toggle="modal"
     data-bs-target="#staticBackdrop"
+    (click)="handleModal()"
   >
     Create User
   </button>
@@ -27,6 +28,9 @@
           <i
             class="fa-solid fa-user-pen"
             style="margin-left: 1rem; cursor: pointer"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            (click)="getUserRole(user)"
           ></i>
         </td>
         <td>{{ user.email }}</td>
@@ -34,9 +38,9 @@
           <i
             class="fa-solid fa-pen-nib"
             style="margin-right: 1rem; cursor: pointer"
-            (click)="handleupdate(user)"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
+            (click)="getUserUpdate(user)"
           ></i>
           <i
             class="fa-sharp fa-solid fa-trash"
@@ -61,7 +65,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Create User</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">{{ modalTitle }}</h5>
           <button
             type="button"
             class="btn-close"
@@ -70,66 +74,155 @@
           ></button>
         </div>
         <div class="modal-body">
-          <form class="rounded p-4 p-sm-3" [formGroup]="createUserForm">
-            <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" formControlName="name" />
-            </div>
+          <div *ngIf="modalId === 'createUser'">
+            <form class="rounded p-4 p-sm-3" [formGroup]="createUserForm">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                />
+              </div>
 
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                formControlName="email"
-              />
-            </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                />
+              </div>
 
-            <div class="row">
-              <label for="role" class="form-label">Role : </label>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    id="user"
-                    value="user"
-                    formControlName="role"
-                  />
-                  <label class="form-check-label" for="user">User</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    id="admin"
-                    value="admin"
-                    formControlName="role"
-                  />
-                  <label class="form-check-label mb-3" for="admin">Admin</label>
+              <div class="row">
+                <label for="role" class="form-label">Role : </label>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="user"
+                      value="user"
+                      formControlName="role"
+                    />
+                    <label class="form-check-label" for="user">User</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="admin"
+                      value="admin"
+                      formControlName="role"
+                    />
+                    <label class="form-check-label mb-3" for="admin"
+                      >Admin</label
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                formControlName="password"
-              />
-            </div>
-            <button
-              type="submit"
-              class="btn btn-success"
-              (click)="handleCreate()"
-              data-bs-dismiss="modal"
-            >
-              Submit
-            </button>
-          </form>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-success"
+                (click)="handleCreate()"
+                data-bs-dismiss="modal"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+          <div *ngIf="modalId === 'updateUser'">
+            <form class="rounded p-4 p-sm-3" [formGroup]="createUserForm">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                (click)="handleUpdate()"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+          <div *ngIf="modalId === 'updateRole'">
+            <form form class="rounded p-4 p-sm-3" [formGroup]="createUserForm">
+              <div class="row">
+                <label for="role" class="form-label">Role : </label>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="user"
+                      value="user"
+                      formControlName="role"
+                    />
+                    <label class="form-check-label" for="user">User</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="admin"
+                      value="admin"
+                      formControlName="role"
+                    />
+                    <label class="form-check-label mb-3" for="admin"
+                      >Admin</label
+                    >
+                  </div>
+                </div>
+                <div class="d-flex end">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    data-bs-dismiss="modal"
+                    (click)="handleRoleUpdate()"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
         <div class="modal-footer">
           {{ todayDate | date : "dd/MM/yyyy" }}

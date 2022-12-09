@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-register',
@@ -7,7 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private api: ApiService) {}
 
   registerForm!: FormGroup;
   ngOnInit(): void {
@@ -17,11 +18,19 @@ export class RegisterComponent implements OnInit {
       company: [''],
       password: [''],
       confirmPassword: [''],
+      captcha: ['captcha-token'],
     });
   }
 
   handleSubmit() {
-    console.log(this.registerForm);
     console.log(this.registerForm.value);
+    this.api.post('/auth/register', this.registerForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

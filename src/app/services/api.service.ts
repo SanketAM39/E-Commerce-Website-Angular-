@@ -20,4 +20,8 @@ export class ApiService {
   delete(url: any, id: number) {
     return this.http.delete(`${this.baseUrl}${url}${id}`);
   }
+
+  patch(url: any, id: string, data: any) {
+    return this.http.patch(`${this.baseUrl}${url}${id}`, data);
+  }
 }
