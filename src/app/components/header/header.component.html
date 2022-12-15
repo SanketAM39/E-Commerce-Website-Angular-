@@ -3,19 +3,100 @@
     <img src="../../../assets/CompanyLogo.svg" />
   </div>
   <!-- <button class="btn btn-primary">Company</button> -->
-  <div class="navbar-2 dropdown">
+  <div class="navbar-2 dropdown display" *ngIf="flag">
     <button
       id="temp"
       class="dropdown-toggle"
       data-bs-toggle="dropdown"
       aria-expanded="false"
     >
-      Hi, Sanket
+      Hi, {{ loggedUser }}
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" href="#">Company</a></li>
-      <li><a class="dropdown-item" href="#">Change Password</a></li>
-      <li><a class="dropdown-item" href="#">Update Role </a></li>
+      <li class="dropdown-item" routerLink="/company" style="cursor: pointer">
+        Company
+      </li>
+      <li
+        class="dropdown-item"
+        style="cursor: pointer"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        (click)="changePassword()"
+      >
+        Change Password
+      </li>
+      <li class="dropdown-item" style="cursor: pointer" routerLink="/products">
+        Products
+      </li>
     </ul>
   </div>
 </nav>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Verify your Email</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="changePasswordToggle === false">
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="password"
+            />
+          </div>
+          <button type="submit" class="btn btn-success" data-bs-dismiss="modal">
+            Submit
+          </button>
+        </div>
+        <div *ngIf="changePasswordToggle === true">
+          <form [formGroup]="changePasswordForm">
+            <div class="mb-3">
+              <label for="password" class="form-label">Old Password</label>
+              <input
+                type="password"
+                class="form-control"
+                formControlName="old_password"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">New Password</label>
+              <input
+                type="password"
+                class="form-control"
+                formControlName="new_password"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-success mb-3"
+              data-bs-dismiss="modal"
+              (click)="changeOldPassword()"
+            >
+              Change
+            </button>
+          </form>
+        </div>
+        <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>

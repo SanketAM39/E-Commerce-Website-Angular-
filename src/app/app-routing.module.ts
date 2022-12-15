@@ -15,6 +15,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('src/app/modules/user/user.module').then((m) => m.UserModule),
   },
+  {
+    path: 'products',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('src/app/modules/products/products.module').then(
+        (m) => m.ProductsModule
+      ),
+  },
 
   { path: '**', redirectTo: 'auth', pathMatch: 'full' },
 ];

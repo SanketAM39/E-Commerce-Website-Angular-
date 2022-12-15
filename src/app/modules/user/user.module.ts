@@ -8,9 +8,15 @@ import { CompanyComponent } from './company/company.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { VerifyEmailComponent } from '../../verify-email/verify-email.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
-  declarations: [MyprofileComponent, HeaderComponent, CompanyComponent],
+  declarations: [
+    MyprofileComponent,
+    HeaderComponent,
+    CompanyComponent,
+    VerifyEmailComponent,
+  ],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -18,6 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxPaginationModule,
   ],
+  exports: [HeaderComponent],
 })
 export class UserModule {}

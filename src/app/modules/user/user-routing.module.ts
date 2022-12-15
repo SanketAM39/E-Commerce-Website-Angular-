@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyComponent } from './company/company.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
+import { VerifyEmailComponent } from '../../verify-email/verify-email.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
     path: 'company',
     component: CompanyComponent,
   },
+  { path: 'auth/verify-email', component: VerifyEmailComponent },
 ];
 
 @NgModule({

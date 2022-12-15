@@ -2,6 +2,7 @@ import { ApiService } from './../../../services/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private shared: SharedService
   ) {}
 
   loginForm!: FormGroup;
@@ -34,6 +36,7 @@ export class LoginComponent {
         this.loginForm.reset();
         localStorage.getItem('User-Token') &&
           this.router.navigate(['/my-profile']);
+        this.shared.getData(res.user);
       },
       error: (err) => {
         console.log(err);

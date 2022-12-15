@@ -9,7 +9,7 @@
     Create User
   </button>
 
-  <table class="table table-hover">
+  <table class="table table-hover mb-3">
     <thead>
       <tr>
         <th scope="col">Sr. No</th>
@@ -20,7 +20,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users; let i = index">
+      <tr
+        *ngFor="
+          let user of users
+            | paginate
+              : {
+                  itemsPerPage: itemPerPage,
+                  currentPage: page,
+                  totalItems: totalResults
+                };
+          let i = index
+        "
+        [class.active]="i == page"
+      >
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ user.name }}</td>
         <td>
@@ -51,6 +63,14 @@
       </tr>
     </tbody>
   </table>
+  <div class="controls">
+    <pagination-controls
+      class="my-pagination"
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+  </div>
 
   <!-- Modal -->
   <div

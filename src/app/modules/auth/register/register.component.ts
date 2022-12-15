@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
 
   handleSubmit() {
     console.log(this.registerForm.value);
+    delete this.registerForm.value.confirmPassword;
     this.api.post('/auth/register', this.registerForm.value).subscribe({
       next: (res) => {
         console.log(res);

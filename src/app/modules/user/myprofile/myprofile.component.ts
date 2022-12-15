@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-myprofile',
@@ -8,7 +9,11 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./myprofile.component.css'],
 })
 export class MyprofileComponent implements OnInit {
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private shared: SharedService
+  ) {}
   userData: any = {
     isVerified: '',
     name: '',
@@ -35,5 +40,13 @@ export class MyprofileComponent implements OnInit {
   logOut() {
     localStorage.setItem('User-Token', '');
     this.router.navigate(['auth/login']);
+  }
+
+  verifyEmail() {
+    this.api
+      .post('/auth/send-verification-email', null)
+      .subscribe((data: any) => {
+        alert('Email sent');
+      });
   }
 }

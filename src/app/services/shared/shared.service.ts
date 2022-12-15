@@ -1,0 +1,17 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SharedService {
+  constructor() {}
+
+  userData: any;
+
+  subject = new BehaviorSubject<any>('');
+
+  getData(data: any) {
+    this.subject.next(data);
+  }
+}

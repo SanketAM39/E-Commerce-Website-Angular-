@@ -14,7 +14,7 @@
             />
           </div>
           <div class="text-center mt-3">
-            <div *ngIf="userData.isEmailVerified; else elseBlock">
+            <div *ngIf="userData.isVerified; else elseBlock">
               <span class="bg-success p-1 px-4 rounded text-white">
                 Verified
                 <!-- <mat-icon>check_circle_outline</mat-icon> -->
@@ -26,6 +26,14 @@
                 <!-- <mat-icon >check_circle_outline</mat-icon> -->
               </span>
             </ng-template>
+            <span
+              class="bg-success p-1 px-4 rounded text-white m-2"
+              *ngIf="!userData.isVerified"
+              (click)="verifyEmail()"
+              style="cursor: pointer"
+            >
+              Verify Account
+            </span>
 
             <h1 class="mt-2 mb-0">{{ userData.name }}</h1>
             <h3 class="mt-0 mb-0 text-danger">
@@ -39,9 +47,6 @@
             <div class="buttons">
               <button class="btn btn-primary px-4 ms-3" (click)="logOut()">
                 Logout
-              </button>
-              <button class="btn btn-primary px-4 ms-3" routerLink="/company">
-                Company
               </button>
             </div>
           </div>

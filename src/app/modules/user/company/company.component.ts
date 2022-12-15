@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-company',
@@ -13,7 +14,8 @@ export class CompanyComponent implements OnInit {
   constructor(
     private api: ApiService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private shared: SharedService
   ) {}
 
   users: any = [];
@@ -22,7 +24,11 @@ export class CompanyComponent implements OnInit {
   modalId: string = 'createUser';
   modalTitle: string = 'Create User';
   userIdUpdate!: string;
-
+  loggedUser: any;
+  page: any = 1;
+  itemPerPage: any = 5;
+  totalResults: any;
+  // query: any = `?&page=${this.page}&limit=${this.itemPerPage}`;
   ngOnInit(): void {
     this.getUser();
     this.createUserForm = this.fb.group({
@@ -34,10 +40,12 @@ export class CompanyComponent implements OnInit {
   }
 
   getUser() {
-    this.api.get('/users').subscribe({
+    this.api.get(`/users`).subscribe({
       next: (res: any) => {
         console.log(res);
         this.users = res.results;
+        this.totalResults = res.totalResults;
+        this.itemPerPage = res.limit;
       },
       error: (err) => {
         console.log(err);
@@ -129,5 +137,25 @@ export class CompanyComponent implements OnInit {
           console.log(err);
         },
       });
+  }
+
+  handlePageChange(e: any) {
+    console.log(e);
+    this.api.get(`/users?page=${e}&limit=${this.itemPerPage}`).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.users = res.results;
+        this.page = res.page;
+        this.totalResults = res.totalResults;
+        this.itemPerPage = res.limit;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  handlePageSizeChange(event: any) {
+    console.log(event);
   }
 }

@@ -3,7 +3,7 @@ import { RegisterComponent } from './register/register.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -22,9 +22,8 @@ const routes: Routes = [
     data: { title: 'User Signup' },
   },
   {
-    path: 'forgot-password',
-    component: ForgotpasswordComponent,
-    data: { title: 'User Signup' },
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
 ];
 
