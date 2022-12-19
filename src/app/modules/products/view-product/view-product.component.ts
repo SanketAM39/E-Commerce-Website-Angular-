@@ -19,6 +19,8 @@ export class ViewProductComponent implements OnInit {
   editProductForm!: FormGroup;
   id: any;
   currentProduct: any;
+  selectedImage: number = 0;
+  modalToggle: string = 'updateProduct';
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data: any) => {
       this.id = data.productId;
@@ -44,11 +46,16 @@ export class ViewProductComponent implements OnInit {
   }
 
   setEditValues() {
+    this.modalToggle = 'updateProduct';
     this.editProductForm.controls['name'].setValue(this.currentProduct.name);
     this.editProductForm.controls['description'].setValue(
       this.currentProduct.description
     );
     this.editProductForm.controls['price'].setValue(this.currentProduct.price);
+  }
+
+  selectImage(index: number) {
+    this.selectedImage = index;
   }
 
   submitUpdateProduct() {
@@ -66,16 +73,21 @@ export class ViewProductComponent implements OnInit {
   }
 
   deleteProduct() {
-    // console.log(this.id);
-    this.api.delete('/products/', this.id).subscribe({
-      next: (res) => {
-        console.log('Delete Product : ', res);
-        alert('Product deleted');
-        this.router.navigate(['products']);
-      },
-      error: (err) => {
-        console.log('Delete Product : ', err);
-      },
-    });
+    // this.api.delete('/products/', this.id).subscribe({
+    //   next: (res) => {
+    //     console.log('Delete Product : ', res);
+    //     alert('Product deleted');
+    //     this.router.navigate(['products']);
+    //   },
+    //   error: (err) => {
+    //     console.log('Delete Product : ', err);
+    //   },
+    // });
+  }
+
+  onFileSelect(event: any): void {}
+  updateImages() {
+    this.modalToggle = 'updateImages';
+    console.log('first');
   }
 }

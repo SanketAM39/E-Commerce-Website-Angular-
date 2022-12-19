@@ -1,19 +1,21 @@
 .product {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   margin: 0%;
   padding: 5%;
 }
 .part-image {
   width: 50%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
+  /* object-fit: cover; */
   justify-content: center;
 }
 .part-image img {
-  width: 50%;
+  width: 65%;
   height: 100%;
+  object-fit: cover;
   display: flex;
   transition: 240ms;
   border-radius: 10%;
@@ -21,21 +23,27 @@
 .part-image img:hover {
   transform: scale(1.1);
 }
+.preview {
+  display: flex;
+  flex-direction: row;
+    
+}
 .part-details {
   width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   text-align: start;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: start;
-  padding-right: 15%;
-  padding-top: 5rem;
+  /* padding: 15%; */
+  padding-left: 5rem;
   /* padding-bottom: 15%; */
 }
-
+.part-details-desc {
+  padding-right: 10rem;
+}
 .part-details-buttons {
   display: flex;
   align-items: center;
-  justify-content: start;
 }

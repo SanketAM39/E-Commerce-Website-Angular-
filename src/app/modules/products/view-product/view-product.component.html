@@ -1,6 +1,14 @@
 <div class="product">
-  <div *ngFor="let image of currentProduct?.images" class="part-image">
-    <img [src]="image.url" />
+  <div class="part-image">
+    <!-- <div class="selected-image"> -->
+    <img src="{{ currentProduct?.images[0].url }}" />
+    <!-- </div> -->
+    <!-- <div
+      class="preview-images"
+      *ngFor="let image of currentProduct?.images; let i = index"
+    >
+      <img [src]="image.url" (click)="selectImage(i)" />
+    </div> -->
   </div>
 
   <div class="part-details">
@@ -15,15 +23,23 @@
     </div>
     <div class="part-details-buttons">
       <button
-        class="btn btn-primary me-3"
+        class="btn btn-outline-primary me-2"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
         (click)="setEditValues()"
       >
         Edit Product
       </button>
-      <button class="btn btn-outline-danger" (click)="deleteProduct()">
+      <button class="btn btn-outline-danger me-2" (click)="deleteProduct()">
         Delete
+      </button>
+      <button
+        class="btn btn-outline-warning"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        (click)="updateImages()"
+      >
+        Edit Images
       </button>
     </div>
   </div>
@@ -51,32 +67,75 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form class="rounded p-4 p-sm-3" [formGroup]="editProductForm">
+        <div *ngIf="modalToggle === 'updateProduct'">
+          <form class="rounded p-4 p-sm-3" [formGroup]="editProductForm">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" formControlName="name" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                rows="3"
+                formControlName="description"
+              ></textarea>
+            </div>
+            <div>
+              <label for="price" class="form-label">Price</label>
+              <input
+                type="number"
+                class="form-control"
+                id="price"
+                min="0"
+                formControlName="price"
+              />
+            </div>
+          </form>
+        </div>
+        <div *ngIf="modalToggle === 'updateImages'">
           <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" formControlName="name" />
+            <form>
+              <div class="row">
+                <label class="form-label">Choose Images</label>
+                <input
+                  class="form-control form-control-sm"
+                  id="formFileSm"
+                  type="file"
+                  multiple
+                  (change)="onFileSelect($event)"
+                  formControlName="images"
+                />
+              </div>
+              <div class="row">
+                <label class="form-label">Images to delete : </label>
+                <div
+                  *ngFor="let image of currentProduct?.images"
+                  class="preview mb-1"
+                >
+                  <img
+                    src="{{ image.url }}"
+                    style="width: 80px; height: 100px"
+                    class="rounded-2"
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="d-flex justify-content-end mt-2">
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  data-bs-dismiss="modal"
+                  (click)="updateImages()"
+                >
+                  Edit
+                </button>
+              </div>
+            </form>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea
-              class="form-control"
-              rows="3"
-              formControlName="description"
-            ></textarea>
-          </div>
-          <div>
-            <label for="price" class="form-label">Price</label>
-            <input
-              type="number"
-              class="form-control"
-              id="price"
-              min="0"
-              formControlName="price"
-            />
-          </div>
-        </form>
+        </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" *ngIf="modalToggle === 'updateProduct'">
         <button
           type="button"
           class="btn btn-warning"

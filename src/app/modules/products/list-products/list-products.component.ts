@@ -26,7 +26,7 @@ export class ListProductsComponent implements OnInit {
   productsImages: any = [];
   createProductForm!: FormGroup;
   basePrice: any = 1000;
-  itemsPerPage: any = 3;
+  itemsPerPage: any = 4;
   page: any = 1;
   totalPage: any;
   query: any = `?page=${this.page}&limit=${this.itemsPerPage}`;

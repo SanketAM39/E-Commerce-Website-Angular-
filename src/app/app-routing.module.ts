@@ -4,27 +4,18 @@ import { AuthGuard, LogInGuard } from './services/guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: 'seller',
     canActivate: [LogInGuard],
     loadChildren: () =>
-      import('src/app/modules/auth/auth.module').then((m) => m.AuthModule),
+      import('src/app/seller/seller.module').then((m) => m.SellerModule),
   },
   {
     path: '',
-    canActivate: [AuthGuard],
     loadChildren: () =>
-      import('src/app/modules/user/user.module').then((m) => m.UserModule),
-  },
-  {
-    path: 'products',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('src/app/modules/products/products.module').then(
-        (m) => m.ProductsModule
-      ),
+      import('src/app/shopping/shopping.module').then((m) => m.ShoppingModule),
   },
 
-  { path: '**', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
