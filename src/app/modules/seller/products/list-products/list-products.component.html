@@ -1,0 +1,215 @@
+<div class="container">
+  <!-- Button -->
+  <div class="">
+    <button
+      class="btn btn-primary my-3"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop"
+    >
+      Create Product
+    </button>
+  </div>
+  <!-- <app-header> </app-header> -->
+  <!-- Cards -->
+  <div class="row">
+    <div class="col-md-12 container shadow-lg px-3 py-0 mb-3 rounded main-body">
+      <div class="row">
+        <div
+          class="col mb-3 d-flex justify-content-center"
+          *ngFor="let product of products; let i = index"
+        >
+          <div
+            class="card mb-3 carousel slide carousel-inner"
+            style="width: 15rem; height: 350px"
+            id="product-carousel{{ i }}"
+            data-bs-ride="carousel"
+          >
+            <div
+              class="carousel-inner"
+              style="width: 100%; height: 65%; object-fit: cover"
+            >
+              <div
+                *ngFor="let image of product.images; let index = index"
+                class="carousel-item"
+                [ngClass]="index === 0 ? 'active' : null"
+                style="width: 100%; height: 100%; object-fit: cover"
+              >
+                <img
+                  [src]="image.url"
+                  class="card-img-top"
+                  alt="..."
+                  style="width: 100%; height: 100%"
+                />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              attr.data-bs-target="#product-carousel{{ i }}"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              attr.data-bs-target="#product-carousel{{ i }}"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+
+            <div
+              class="card-body"
+              style="height: 35%; width: 100%"
+              routerLink="seller/products/{{ product._id }}"
+            >
+              <h5 class="card-title">{{ product?.name }}</h5>
+              <div class="card-price-tag">
+                <p>{{ product?.price | currency : "INR" }}</p>
+                <p
+                  style="margin-left: 1rem; text-decoration: line-through"
+                  *ngIf="basePrice > product?.price"
+                >
+                  {{ basePrice | currency : "INR" }}
+                </p>
+                <span *ngIf="basePrice > product?.price" class="discount"
+                  >-{{
+                    ((basePrice - product?.price) / basePrice) * 100
+                  }}%</span
+                >
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary seeMore"
+                routerLink="{{ product._id }}"
+              >
+                See More...
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Pagination Control -->
+  <div class="row mb-3">
+    <div class="col-md-12 d-flex align-items-center pagination">
+      <div class="d-flex justify-content-center">
+        <label class="control-label">Items per page :</label>
+        <select
+          class="form-control border-dark mx-3 px-2 py-1 align-items-center"
+          [value]="itemsPerPage"
+          (change)="changeLimit($event)"
+          style="width: 33px; height: 30px; font-size: 13px"
+        >
+          <option value="4">4</option>
+          <option value="8">8</option>
+          <!-- <option value="10">10</option> -->
+        </select>
+      </div>
+      <div class="btn-group">
+        <button
+          class="btn btn-outline-danger mx-3 rounded-circle"
+          (click)="previous()"
+        >
+          prev
+        </button>
+        <button class="btn btn-outline-warning active rounded-2">
+          <!-- {{ products?.page }} -->{{ page }}
+        </button>
+        <button
+          class="btn btn-outline-success mx-3 rounded-circle"
+          (click)="next()"
+        >
+          next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Create Product
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div [formGroup]="createProductForm">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" formControlName="name" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Desription</label>
+              <textarea
+                class="form-control"
+                rows="3"
+                formControlName="description"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Choose Images</label>
+              <input
+                class="form-control form-control-sm"
+                id="formFileSm"
+                type="file"
+                multiple
+                (change)="onFileSelect($event)"
+                formControlName="images"
+              />
+            </div>
+
+            <label class="form-label">Price</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">₹</span>
+              <input
+                type="number"
+                class="form-control"
+                min="0"
+                formControlName="price"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-dismiss="modal"
+          (click)="submitProduct()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

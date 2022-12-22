@@ -1,0 +1,75 @@
+<div class="container">
+  <form class="" [formGroup]="loginForm">
+    <div class="d-flex justify-content-start mb-2 fs-5 text-primary">
+      <i
+        class="fa-solid fa-left-long"
+        routerLink=""
+        style="cursor: pointer"
+      ></i>
+    </div>
+    <div class="row g-0">
+      <div class="col text-center p-2 mb-3">
+        <h1 class="h3m">Login</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+        />
+        <div
+          *ngIf="
+            loginForm.controls['email'].dirty &&
+            loginForm.hasError('required', 'email')
+          "
+          class="form-text text-danger"
+        >
+          <small>Email is required!</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+        />
+        <div
+          *ngIf="
+            loginForm.controls['email'].dirty &&
+            loginForm.hasError('required', 'email')
+          "
+          class="form-text text-danger"
+        >
+          <small>Password is required!</small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 mb-3">
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" (click)="handleLogin()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+    <div style="color: blue; cursor: pointer">Forget Password?</div>
+    <div
+      style="color: black"
+      class="mt-2 d-flex justify-content-between align-items-center"
+    >
+      <p>New customer?</p>
+      <h6 class="btn btn-outline-primary" routerLink="/auth/signup">Sign Up</h6>
+    </div>
+  </form>
+</div>

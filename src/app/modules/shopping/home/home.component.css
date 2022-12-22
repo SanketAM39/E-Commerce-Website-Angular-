@@ -1,0 +1,95 @@
+/* Navbar  */
+.navbar {
+  display: flex;
+  align-content: center;
+  padding: 1rem 0.5rem 1rem 2rem;
+  margin: 0%;
+}
+#temp {
+  display: flex;
+  align-content: center;
+  background: transparent;
+  color: black;
+  border: 1px solid #4158d0;
+  border-radius: 5px;
+  margin-right: 3rem;
+  padding: 0.5rem 1rem;
+}
+
+#temp:hover {
+  color: black;
+  background-color: #ffc72c;
+  border: 1px solid #ffc72c;
+}
+.dropdown-toggle::after {
+  margin-left: 0.455em;
+  margin-top: 0.555em;
+}
+
+/* Body */
+
+.container {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+.display {
+  display: none;
+}
+.card {
+  transition: 240ms;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+.main-body {
+  justify-content: center;
+}
+h5 {
+  font-size: 1.2rem;
+}
+p {
+  font-size: 0.8rem;
+}
+.seeMore {
+  height: 22px;
+  width: 50%;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  text-overflow: ellipsis;
+}
+.card-price-tag {
+  display: flex;
+}
+
+.discount {
+  color: white;
+  margin-left: 1rem;
+  font-size: 0.65rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.2rem;
+  border-radius: 5px;
+  height: 1.1rem;
+  background-color: red;
+}
+.pagination {
+  justify-content: space-between;
+}
+@media (max-width: 1200px) {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

@@ -5,14 +5,18 @@ import { AuthGuard, LogInGuard } from './services/guard/auth.guard';
 const routes: Routes = [
   {
     path: 'seller',
-    canActivate: [LogInGuard],
+    // canActivate: [LogInGuard],
     loadChildren: () =>
-      import('src/app/seller/seller.module').then((m) => m.SellerModule),
+      import('src/app/modules/seller/seller.module').then(
+        (m) => m.SellerModule
+      ),
   },
   {
     path: '',
     loadChildren: () =>
-      import('src/app/shopping/shopping.module').then((m) => m.ShoppingModule),
+      import('src/app/modules/shopping/shopping.module').then(
+        (m) => m.ShoppingModule
+      ),
   },
 
   { path: '**', redirectTo: '', pathMatch: 'full' },

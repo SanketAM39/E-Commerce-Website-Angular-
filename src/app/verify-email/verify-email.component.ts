@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ApiService } from "src/app/services/api.service";
 
 @Component({
-  selector: 'app-verify-email',
-  templateUrl: './verify-email.component.html',
-  styleUrls: ['./verify-email.component.css'],
+  selector: "app-verify-email",
+  templateUrl: "./verify-email.component.html",
+  styleUrls: ["./verify-email.component.css"],
 })
 export class VerifyEmailComponent implements OnInit {
   token: string | undefined;
@@ -26,7 +26,7 @@ export class VerifyEmailComponent implements OnInit {
         .subscribe((data: any) => {
           console.log(data);
 
-          this.router.navigateByUrl('/my-profile');
+          this.router.navigateByUrl("/my-profile");
         });
     });
   }
