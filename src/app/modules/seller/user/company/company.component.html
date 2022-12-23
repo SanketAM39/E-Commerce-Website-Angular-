@@ -33,17 +33,17 @@
         "
         [class.active]="i == page"
       >
-        <th scope="row">{{ i + 1 }}</th>
+        <th scope="row">{{ srNo + i }}</th>
         <td>{{ user.name }}</td>
         <td>
-          {{ user.role }}
           <i
-            class="fa-solid fa-user-pen"
-            style="margin-left: 1rem; cursor: pointer"
+            class="fa-solid fa-user-pen me-2"
+            style="cursor: pointer"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
             (click)="getUserRole(user)"
           ></i>
+          {{ user.role }}
         </td>
         <td>{{ user.email }}</td>
         <td>

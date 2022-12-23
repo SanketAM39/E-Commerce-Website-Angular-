@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
-import { SharedService } from 'src/app/services/shared/shared.service';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ApiService } from "src/app/services/api.service";
+import { SharedService } from "src/app/services/shared/shared.service";
 
 @Component({
-  selector: 'app-company',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css'],
+  selector: "app-company",
+  templateUrl: "./company.component.html",
+  styleUrls: ["./company.component.css"],
 })
 export class CompanyComponent implements OnInit {
   [x: string]: any;
@@ -21,31 +21,33 @@ export class CompanyComponent implements OnInit {
   users: any = [];
   createUserForm!: FormGroup;
   todayDate = new Date();
-  modalId: string = 'createUser';
-  modalTitle: string = 'Create User';
+  modalId: string = "createUser";
+  modalTitle: string = "Create User";
   userIdUpdate!: string;
   loggedUser: any;
   page: any = 1;
   itemPerPage: any = 5;
   totalResults: any;
-  // query: any = `?&page=${this.page}&limit=${this.itemPerPage}`;
+  srNo: number = 1;
+  query: any = `?page=${this.page}&limit=${this.itemPerPage}`;
+
   ngOnInit(): void {
     this.getUser();
     this.createUserForm = this.fb.group({
-      name: [''],
-      email: [''],
-      role: [''],
-      password: [''],
+      name: [""],
+      email: [""],
+      role: [""],
+      password: [""],
     });
   }
 
   getUser() {
-    this.api.get(`/users`).subscribe({
+    this.query = `?page=${this.page}&limit=${this.itemPerPage}`;
+    this.api.get(`/users${this.query}`).subscribe({
       next: (res: any) => {
         console.log(res);
         this.users = res.results;
         this.totalResults = res.totalResults;
-        this.itemPerPage = res.limit;
       },
       error: (err) => {
         console.log(err);
@@ -54,12 +56,12 @@ export class CompanyComponent implements OnInit {
   }
 
   handleCreate() {
-    this.modalId = 'createUser';
+    this.modalId = "createUser";
     console.log(this.createUserForm.value);
-    this.api.post('/users', this.createUserForm.value).subscribe({
+    this.api.post("/users", this.createUserForm.value).subscribe({
       next: (res: any) => {
         console.log(res);
-        alert('Create Success!');
+        alert("Create Success!");
         this.getUser();
         this.createUserForm.reset();
       },
@@ -82,26 +84,26 @@ export class CompanyComponent implements OnInit {
     // });
   }
   handleModal() {
-    this.modalTitle = 'Create User';
-    if (this.modalId === 'updateUser || updateRole') {
-      this.modalId = 'createUser';
+    this.modalTitle = "Create User";
+    if (this.modalId === "updateUser || updateRole") {
+      this.modalId = "createUser";
       // this.modalTitle = 'Create User';
     } else {
-      this.modalId = 'createUser';
+      this.modalId = "createUser";
     }
   }
 
   getUserRole(user: any) {
-    this.modalId = 'updateRole';
-    this.modalTitle = 'Update Role';
+    this.modalId = "updateRole";
+    this.modalTitle = "Update Role";
     this.userIdUpdate = user?._id;
   }
   getUserUpdate(user: any) {
-    this.modalTitle = 'Update User';
-    this.modalId = 'updateUser';
-    this.createUserForm.controls['name'].setValue(user.name);
-    this.createUserForm.controls['email'].setValue(user.email);
-    this.createUserForm.controls['password'].setValue('');
+    this.modalTitle = "Update User";
+    this.modalId = "updateUser";
+    this.createUserForm.controls["name"].setValue(user.name);
+    this.createUserForm.controls["email"].setValue(user.email);
+    this.createUserForm.controls["password"].setValue("");
     delete this.createUserForm.value.role;
     console.log(this.createUserForm.value);
     this.userIdUpdate = user?._id;
@@ -127,7 +129,7 @@ export class CompanyComponent implements OnInit {
   handleUpdate() {
     delete this.createUserForm.value.role;
     this.api
-      .patch('/users/', this.userIdUpdate, this.createUserForm.value)
+      .patch("/users/", this.userIdUpdate, this.createUserForm.value)
       .subscribe({
         next: (res) => {
           this.createUserForm.reset();
@@ -141,19 +143,11 @@ export class CompanyComponent implements OnInit {
 
   handlePageChange(e: any) {
     console.log(e);
-    this.api.get(`/users?page=${e}&limit=${this.itemPerPage}`)
-    .subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.users = res.results;
-        this.page = res.page;
-        this.totalResults = res.totalResults;
-        this.itemPerPage = res.limit;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.page = e;
+    const recordsOnPage = e * this.itemPerPage;
+    this.srNo = recordsOnPage - (this.itemPerPage - 1);
+    console.log(this.srNo);
+    this.getUser();
   }
 
   handlePageSizeChange(event: any) {
