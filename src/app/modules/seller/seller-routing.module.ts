@@ -4,6 +4,7 @@ import {
   customerGuard,
   ShoppingGuard,
 } from "src/app/services/guard/shopping.guard";
+import { VerifyEmailComponent } from "src/app/verify-email/verify-email.component";
 import { AuthGuard, LogInGuard } from "../../services/guard/auth.guard";
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
         (m) => m.ProductsModule
       ),
     canActivate: [AuthGuard],
+  },
+  {
+    path: "auth/verify-email",
+    component: VerifyEmailComponent,
   },
   {
     path: "**",

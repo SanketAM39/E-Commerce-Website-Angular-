@@ -1,28 +1,29 @@
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
+import { VerifyEmailComponent } from "src/app/verify-email/verify-email.component";
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    path: "",
+    redirectTo: "login",
+    pathMatch: "full",
   },
   {
-    path: 'login',
+    path: "login",
     component: LoginComponent,
-    data: { title: 'Login' },
+    data: { title: "Login" },
   },
   {
-    path: 'signup',
+    path: "signup",
     component: RegisterComponent,
-    data: { title: 'User Signup' },
+    data: { title: "User Signup" },
   },
   {
-    path: 'reset-password',
+    path: "reset-password",
     component: ResetPasswordComponent,
   },
 ];

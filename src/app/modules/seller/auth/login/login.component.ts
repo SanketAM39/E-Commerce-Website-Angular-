@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { SharedService } from "src/app/services/shared/shared.service";
+import { HotToastService } from "@ngneat/hot-toast";
 
 @Component({
   selector: "app-login",
@@ -14,11 +15,13 @@ export class LoginComponent {
     private fb: FormBuilder,
     private api: ApiService,
     private router: Router,
-    private shared: SharedService
+    private shared: SharedService,
+    private toast: HotToastService
   ) {}
 
   loginForm!: FormGroup;
   todayDate = new Date();
+  showHidePassToggle = "password";
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ["sanket@angularminds.in"],
@@ -27,11 +30,20 @@ export class LoginComponent {
     });
   }
 
+  showPassToggle() {
+    if (this.showHidePassToggle === "password") {
+      this.showHidePassToggle = "text";
+    } else {
+      this.showHidePassToggle = "password";
+    }
+  }
+
   handleSubmit() {
     console.log(this.loginForm.value);
     this.api.post("/auth/login", this.loginForm.value).subscribe({
       next: (res: any) => {
         console.log(res);
+        // this.toast.success("Login Successfully!", {});
         localStorage.setItem("User-Token", res.token);
         this.loginForm.reset();
         localStorage.getItem("User-Token") &&
@@ -40,7 +52,6 @@ export class LoginComponent {
       },
       error: (err) => {
         console.log(err);
-        alert("Error While Login");
       },
     });
   }

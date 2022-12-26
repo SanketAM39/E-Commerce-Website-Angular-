@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router, RouteReuseStrategy } from "@angular/router";
 import { ApiService } from "src/app/services/api.service";
 import Swal from "sweetalert2";
-import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-home",

@@ -16,6 +16,7 @@ import {
 } from "@abacritt/angularx-social-login";
 import { SellerModule } from "./modules/seller/seller.module";
 import { ShoppingModule } from "./modules/shopping/shopping.module";
+import { HotToastModule } from "@ngneat/hot-toast";
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,11 @@ import { ShoppingModule } from "./modules/shopping/shopping.module";
     MatIconModule,
     SocialLoginModule,
     NgxPaginationModule,
+    HotToastModule.forRoot({
+      reverseOrder: true,
+      dismissible: true,
+      autoClose: false,
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CommonInterceptor, multi: true },

@@ -7,7 +7,6 @@ import { HomeComponent } from "./home/home.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [HomeComponent, HeaderComponent, FooterComponent],
@@ -16,7 +15,6 @@ import { ToastrModule } from "ngx-toastr";
     ShoppingRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    ToastrModule.forRoot(),
   ],
 })
 export class ShoppingModule {}

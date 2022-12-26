@@ -26,7 +26,7 @@ export class VerifyEmailComponent implements OnInit {
         .subscribe((data: any) => {
           console.log(data);
 
-          this.router.navigateByUrl("/my-profile");
+          this.router.navigateByUrl("/seller/my-profile");
         });
     });
   }

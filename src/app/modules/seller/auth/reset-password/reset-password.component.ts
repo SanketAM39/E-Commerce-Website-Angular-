@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ApiService } from "src/app/services/api.service";
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css'],
+  selector: "app-reset-password",
+  templateUrl: "./reset-password.component.html",
+  styleUrls: ["./reset-password.component.css"],
 })
 export class ResetPasswordComponent implements OnInit {
   constructor(
@@ -24,7 +24,7 @@ export class ResetPasswordComponent implements OnInit {
     });
 
     this.resetPasswordForm = this.fb.group({
-      password: [''],
+      password: [""],
     });
   }
 
@@ -36,13 +36,13 @@ export class ResetPasswordComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log('Reset', res);
-          alert('Reset Password Successful!');
-          this.router.navigateByUrl('');
+          console.log("Reset", res);
+          alert("Reset Password Successful!");
+          this.router.navigateByUrl("seller");
         },
         error: (err) => {
           console.log(err);
-          alert('Error');
+          alert("Error");
         },
       });
   }

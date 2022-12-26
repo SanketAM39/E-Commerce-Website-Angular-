@@ -30,6 +30,7 @@
               class="bg-success p-1 px-4 rounded text-white m-2"
               *ngIf="!userData.isVerified"
               (click)="verifyEmail()"
+              routerLink="/seller/auth/verify-email"
               style="cursor: pointer"
             >
               Verify Account
