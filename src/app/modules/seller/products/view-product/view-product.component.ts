@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ApiService } from "src/app/services/api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-view-product",
@@ -73,16 +74,26 @@ export class ViewProductComponent implements OnInit {
   }
 
   deleteProduct() {
-    // this.api.delete('/products/', this.id).subscribe({
-    //   next: (res) => {
-    //     console.log('Delete Product : ', res);
-    //     alert('Product deleted');
-    //     this.router.navigate(['products']);
-    //   },
-    //   error: (err) => {
-    //     console.log('Delete Product : ', err);
-    //   },
-    // });
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Delete!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.delete("/products/", this.id).subscribe({
+          next: (res) => {
+            console.log("Delete Product : ", res);
+            this.router.navigate(["/seller/products"]);
+          },
+          error: (err) => {
+            console.log("Delete Product : ", err);
+          },
+        });
+      }
+    });
   }
 
   onFileSelect(event: any): void {}

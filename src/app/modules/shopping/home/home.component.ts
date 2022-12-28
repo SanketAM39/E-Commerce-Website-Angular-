@@ -1,8 +1,11 @@
+import { Observable } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router, RouteReuseStrategy } from "@angular/router";
 import { ApiService } from "src/app/services/api.service";
 import Swal from "sweetalert2";
+import { Store } from "@ngrx/store";
+import { increment } from "src/app/store/actions/actions";
 
 @Component({
   selector: "app-home",
@@ -13,17 +16,24 @@ export class HomeComponent implements OnInit {
   constructor(
     private api: ApiService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private store: Store<{ cartItemCount: number }>
   ) {}
+
   products: any = [];
   itemsPerPage: number = 20;
   page: any = 1;
   totalPages!: number;
   changePasswordForm!: FormGroup;
+  cartItemCount$!: Observable<number>;
   token = localStorage.getItem("customer-token");
   query = `?page=${this.page}&limit=${this.itemsPerPage}`;
 
   ngOnInit(): void {
+    this.cartItemCount$ = this.store.select("cartItemCount");
+    // this.store.select("cartItemCount").subscribe((data) => {
+    //   this.cartItemCount = data.counter;
+    // });
     this.getProducts();
     this.changePasswordForm = this.fb.group({
       old_password: [""],
@@ -92,5 +102,9 @@ export class HomeComponent implements OnInit {
   changeLimit(event: any) {
     this.itemsPerPage = event.target.value;
     this.getProducts();
+  }
+
+  onIncrement() {
+    this.store.dispatch(increment());
   }
 }

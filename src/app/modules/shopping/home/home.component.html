@@ -1,6 +1,6 @@
 <div>
   <nav class="navbar">
-    <div class="navbar-1">
+    <div class="navbar-1" routerLink="/">
       <img src="../../../assets/CompanyLogo.svg" style="cursor: pointer" />
     </div>
     <div *ngIf="!token">
@@ -16,42 +16,55 @@
         class="btn btn-outline-success me-2"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
-        routerLink="/auth/signup"
+        routerLink="auth/signup"
       >
         Register
       </button>
     </div>
-    <div class="dropdown" *ngIf="token">
-      <button
-        id="temp"
-        class="dropdown-toggle d-flex align-items-center justify-content-center"
-        data-bs-toggle="dropdown"
-        style="margin-right: 166px"
-        aria-expanded="false"
-      >
-        <i class="fa-regular fa-user"></i>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li
-          class="dropdown-item"
-          style="cursor: pointer"
-          routerLink="/customer/profile"
+    <div *ngIf="token" class="d-flex align-items-center">
+      <div class="dropdown">
+        <button
+          id="temp"
+          class="dropdown-toggle d-flex align-items-center justify-content-center"
+          data-bs-toggle="dropdown"
+          style="margin-right: 0px"
+          aria-expanded="false"
         >
-          <i class="fa-regular fa-user me-2"></i>
-          Profile
-        </li>
-        <li
-          class="dropdown-item"
-          style="cursor: pointer"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
+          <i class="fa-regular fa-user"></i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li
+            class="dropdown-item"
+            style="cursor: pointer"
+            routerLink="/customer/profile"
+          >
+            <i class="fa-regular fa-user me-2"></i>
+            Profile
+          </li>
+          <li
+            class="dropdown-item"
+            style="cursor: pointer"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
+            <i class="fa-solid fa-gear me-2"></i>Change Password
+          </li>
+          <li class="dropdown-item" style="cursor: pointer" (click)="logOut()">
+            <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
+          </li>
+        </ul>
+      </div>
+      <div class="cart">
+        <i
+          class="fa-solid fa-cart-shopping ms-5 position-relative"
+          style="font-size: 20px; cursor: pointer"
         >
-          <i class="fa-solid fa-gear me-2"></i>Change Password
-        </li>
-        <li class="dropdown-item" style="cursor: pointer" (click)="logOut()">
-          <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
-        </li>
-      </ul>
+          <span
+            class="cart-counter position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >{{ cartItemCount$ | async }}</span
+          >
+        </i>
+      </div>
     </div>
   </nav>
 </div>
@@ -118,7 +131,11 @@
               <div class="card-price-tag">
                 <p>{{ product?.price | currency : "INR" }}</p>
               </div>
-              <button type="button" class="btn btn-warning seeMore">
+              <button
+                type="button"
+                class="btn btn-warning seeMore"
+                (click)="onIncrement()"
+              >
                 Add to Cart
               </button>
             </div>

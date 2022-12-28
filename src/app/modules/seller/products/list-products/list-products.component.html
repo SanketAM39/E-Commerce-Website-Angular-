@@ -1,18 +1,31 @@
 <div class="container">
   <!-- Button -->
-  <div class="">
-    <button
-      class="btn btn-primary my-3"
-      data-bs-toggle="modal"
-      data-bs-target="#staticBackdrop"
-    >
-      Create Product
-    </button>
+  <div class="d-flex align-items-center">
+    <div>
+      <i
+        class="fa-solid fa-arrow-left-long me-5 text-secondary"
+        style="font-size: 35px; cursor: pointer"
+        routerLink="/seller/my-profile"
+      ></i>
+    </div>
+    <div>
+      <button
+        class="btn btn-outline-primary my-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        Create Product
+      </button>
+    </div>
   </div>
   <!-- <app-header> </app-header> -->
   <!-- Cards -->
   <div class="row">
-    <h1 *ngIf="products.length === 0">No products to display</h1>
+    <h1 *ngIf="loadingProducts">Loading...</h1>
+    <h1 *ngIf="!loadingProducts && products.length === 0">
+      No products to display
+    </h1>
+
     <div class="col-md-12 container shadow-lg px-3 py-0 mb-3 rounded main-body">
       <div class="row">
         <div

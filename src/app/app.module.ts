@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -17,6 +17,9 @@ import {
 import { SellerModule } from "./modules/seller/seller.module";
 import { ShoppingModule } from "./modules/shopping/shopping.module";
 import { HotToastModule } from "@ngneat/hot-toast";
+import { StoreModule } from "@ngrx/store";
+import { cartReducer } from "./store/reducers/reducer";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +38,8 @@ import { HotToastModule } from "@ngneat/hot-toast";
       dismissible: true,
       autoClose: false,
     }),
+    StoreModule.forRoot({ cartItemCount: cartReducer }, {}),
+    StoreDevtoolsModule.instrument({ logOnly: !isDevMode() }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CommonInterceptor, multi: true },

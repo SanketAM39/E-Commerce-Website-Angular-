@@ -8,7 +8,7 @@ import { CompanyComponent } from "./company/company.component";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-import { VerifyEmailComponent } from "../../../verify-email/verify-email.component";
+import { VerifyEmailComponent } from "../user/verify-email/verify-email.component";
 import { NgxPaginationModule } from "ngx-pagination";
 @NgModule({
   declarations: [

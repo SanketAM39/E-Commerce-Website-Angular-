@@ -25,7 +25,6 @@ export class VerifyEmailComponent implements OnInit {
         .post(`/auth/verify-email?token=${this.token}`, null)
         .subscribe((data: any) => {
           console.log(data);
-
           this.router.navigateByUrl("/seller/my-profile");
         });
     });

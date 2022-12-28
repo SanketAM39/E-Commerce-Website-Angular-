@@ -27,18 +27,20 @@
           class="form-control"
           formControlName="password"
         />
-        <i
-          *ngIf="showHidePassToggle === 'password'"
-          class="fa-regular fa-eye-slash"
-          (click)="showPassToggle()"
-          style="cursor: pointer"
-        ></i>
-        <i
-          *ngIf="showHidePassToggle === 'text'"
-          class="fa-regular fa-eye"
-          style="cursor: pointer"
-          (click)="showPassToggle()"
-        ></i>
+        <div class="d-flex justify-content-end">
+          <i
+            *ngIf="showHidePassToggle === 'password'"
+            class="fa-regular fa-eye-slash"
+            (click)="showPassToggle()"
+            style="cursor: pointer; margin-top: -27px; margin-right: 12px"
+          ></i>
+          <i
+            *ngIf="showHidePassToggle === 'text'"
+            class="fa-regular fa-eye"
+            style="cursor: pointer; margin-top: -27px; margin-right: 12px"
+            (click)="showPassToggle()"
+          ></i>
+        </div>
         <div class="form-text"></div>
       </div>
     </div>

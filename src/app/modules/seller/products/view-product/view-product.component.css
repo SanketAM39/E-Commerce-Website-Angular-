@@ -9,8 +9,7 @@
   width: 50%;
   /* height: 100%; */
   display: flex;
-  /* object-fit: cover; */
-  justify-content: center;
+  justify-content: space-between;
 }
 .part-image img {
   width: 65%;
@@ -19,14 +18,19 @@
   display: flex;
   transition: 240ms;
   border-radius: 10%;
+  margin-right: 3rem;
 }
 .part-image img:hover {
   transform: scale(1.1);
 }
+.back-icon:hover {
+  transition: 240ms;
+  transform: scale(1.5);
+  color: cadetblue;
+}
 .preview {
   display: flex;
   flex-direction: row;
-    
 }
 .part-details {
   width: 50%;

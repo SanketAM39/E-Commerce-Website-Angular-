@@ -21,6 +21,7 @@ export class ListProductsComponent implements OnInit {
     });
   }
 
+  loadingProducts = false;
   files: any = [];
   products: any = [];
   // productsImages: any = [];
@@ -32,6 +33,7 @@ export class ListProductsComponent implements OnInit {
   query: any = `?page=${this.page}&limit=${this.itemsPerPage}`;
 
   getProducts() {
+    this.loadingProducts = true;
     this.query = `?page=${this.page}&limit=${this.itemsPerPage}`;
     this.api.get(`/products${this.query}`).subscribe({
       next: (res: any) => {
@@ -39,6 +41,7 @@ export class ListProductsComponent implements OnInit {
         this.products = res.results;
         // this.setProductImages();
         this.totalPage = res.totalPages;
+        this.loadingProducts = false;
       },
       error: (err) => {
         console.log(err);

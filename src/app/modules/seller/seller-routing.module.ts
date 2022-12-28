@@ -1,10 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import {
-  customerGuard,
-  ShoppingGuard,
-} from "src/app/services/guard/shopping.guard";
-import { VerifyEmailComponent } from "src/app/verify-email/verify-email.component";
+import { VerifyEmailComponent } from "src/app/modules/seller/user/verify-email/verify-email.component";
 import { AuthGuard, LogInGuard } from "../../services/guard/auth.guard";
 
 const routes: Routes = [

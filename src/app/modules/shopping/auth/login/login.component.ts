@@ -10,6 +10,7 @@ import { ApiService } from "src/app/services/api.service";
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  showHidePassToggle = "password";
   constructor(
     private api: ApiService,
     private fb: FormBuilder,
@@ -20,6 +21,14 @@ export class LoginComponent implements OnInit {
       email: ["sanket@yahoo.com", Validators.required],
       password: ["sanket898", Validators.required],
     });
+  }
+
+  showPassToggle() {
+    if (this.showHidePassToggle === "password") {
+      this.showHidePassToggle = "text";
+    } else {
+      this.showHidePassToggle = "password";
+    }
   }
 
   handleLogin() {

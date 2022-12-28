@@ -2,8 +2,12 @@
 .navbar {
   display: flex;
   align-content: center;
-  padding: 1rem 0.5rem 1rem 2rem;
+  /* justify-content: space-between; */
+  padding: 1rem 5rem 1rem 2rem;
   margin: 0%;
+}
+.cart-counter {
+  font-size: 10px;
 }
 #temp {
   display: flex;
@@ -32,6 +36,7 @@
   min-height: 70vh;
   display: flex;
   flex-direction: column;
+  /* position: sticky; */
 }
 .display {
   display: none;
@@ -68,7 +73,6 @@ p {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-
   text-overflow: ellipsis;
 }
 .card-price-tag {

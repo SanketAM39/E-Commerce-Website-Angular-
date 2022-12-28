@@ -1,25 +1,24 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard, LogInGuard } from './services/guard/auth.guard';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard, LogInGuard } from "./services/guard/auth.guard";
 
 const routes: Routes = [
   {
-    path: 'seller',
-    // canActivate: [LogInGuard],
+    path: "seller",
     loadChildren: () =>
-      import('src/app/modules/seller/seller.module').then(
+      import("src/app/modules/seller/seller.module").then(
         (m) => m.SellerModule
       ),
   },
   {
-    path: '',
+    path: "",
     loadChildren: () =>
-      import('src/app/modules/shopping/shopping.module').then(
+      import("src/app/modules/shopping/shopping.module").then(
         (m) => m.ShoppingModule
       ),
   },
 
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 
 @NgModule({
