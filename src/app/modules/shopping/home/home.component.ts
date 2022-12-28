@@ -104,7 +104,8 @@ export class HomeComponent implements OnInit {
     this.getProducts();
   }
 
-  onIncrement() {
+  onIncrement(id: any) {
     this.store.dispatch(increment());
+    console.log(id);
   }
 }

@@ -4,9 +4,10 @@ import { CommonModule } from "@angular/common";
 
 import { CustomerRoutingModule } from "./customer-routing.module";
 import { ProfileComponent } from "./profile/profile.component";
+import { CartComponent } from './profile/cart/cart.component';
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent, CartComponent],
   imports: [CommonModule, CustomerRoutingModule, ReactiveFormsModule],
 })
 export class CustomerModule {}
