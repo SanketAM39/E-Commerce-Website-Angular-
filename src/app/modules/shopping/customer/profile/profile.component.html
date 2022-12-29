@@ -1,0 +1,321 @@
+<div class="container py-4 px-0">
+  <div class="row d-flex justify-content-center h-100">
+    <i
+      class="fa-solid fa-left-long"
+      style="font-size: 30px; cursor: pointer"
+      routerLink=""
+    ></i>
+    <div class="col col-lg-6 mb-4 mb-lg-0">
+      <div class="card mb-3" style="border-radius: 0.5rem">
+        <div class="row g-0">
+          <div
+            class="col-md-4 gradient-custom text-center text-white"
+            style="
+              border-top-left-radius: 0.5rem;
+              border-bottom-left-radius: 0.5rem;
+            "
+          >
+            <div class="d-block">
+              <img
+                [src]="userData.picture"
+                alt="Avatar"
+                class="img-fluid mt-5 mb-4 rounded-circle mx-auto"
+                style="width: 100px; height: 100px"
+              />
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+              <i
+                class="far fa-edit"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-title="Tooltip on top"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+                style="cursor: pointer; font-size: 18px"
+                (click)="editPictureModal()"
+              ></i>
+              <i
+                class="fa-regular fa-trash-can ms-3"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-title="Tooltip on top"
+                style="cursor: pointer; font-size: 18px; color: red"
+                (click)="deleteProfilePicture()"
+              ></i>
+            </div>
+            <h5>{{ userData.name }}</h5>
+            <p>Web Designer</p>
+            <div>
+              <i
+                class="fa-solid fa-user-slash mx-auto"
+                data-bs-title="Tooltip on top"
+                style="cursor: pointer; color: red; font-size: 25px"
+                (click)="deleteCustomer()"
+              ></i>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body p-4">
+              <div class="d-flex align-content-center">
+                <h6>Information</h6>
+                <i
+                  class="far fa-edit ms-4"
+                  style="cursor: pointer"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                  (click)="editProfileModal()"
+                ></i>
+              </div>
+              <hr class="mt-0 mb-4" />
+              <div class="row pt-1">
+                <div class="col-6 mb-3">
+                  <h6>Email</h6>
+                  <p class="text-muted">{{ userData.email }}</p>
+                </div>
+                <div class="col-6 mb-3">
+                  <h6>Good Name</h6>
+                  <p class="text-muted">{{ userData.name }}</p>
+                </div>
+              </div>
+              <h6>Address</h6>
+              <hr class="mt-0 mb-4" />
+              <div class="row pt-1">
+                <div class="col-6 mb-3">
+                  <div class="d-flex align-content-center">
+                    <h6 class="me-2">Add Address</h6>
+                    <i
+                      class="fa-solid fa-plus"
+                      style="
+                        cursor: pointer;
+                        font-size: 20px;
+                        margin-bottom: 2px;
+                      "
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      (click)="addAddressModal()"
+                    ></i>
+                  </div>
+                  <p class="text-muted">Lorem ipsum</p>
+                </div>
+                <div class="col-6 mb-3">
+                  <div>
+                    <h6
+                      class="getAddress"
+                      style="cursor: pointer"
+                      (click)="getAddresses()"
+                    >
+                      Get Saved Addresses
+                    </h6>
+                    <i
+                      class="fa-solid fa-arrow-down-long ms-4 getAddress"
+                      style="cursor: pointer"
+                      (click)="getAddresses()"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container d-flex justify-content-center" *ngIf="showSaveAddresses">
+  <div class="row gap-3">
+    <div
+      class="card col-4"
+      style="width: 18rem; height: 10rem"
+      *ngFor="let address of savedAddresses; let i = index"
+    >
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h5 class="card-title">Address {{ i + 1 }}</h5>
+          <i
+            class="fa-solid fa-ellipsis-vertical dropdown"
+            style="cursor: pointer"
+            data-bs-toggle="dropdown"
+          ></i>
+          <ul class="dropdown-menu">
+            <li
+              class="dropdown-item"
+              style="cursor: pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              (click)="getIdAddress(address._id, i)"
+            >
+              Update
+            </li>
+            <li
+              class="dropdown-item text-danger"
+              style="cursor: pointer"
+              (click)="deleteAddress(address._id)"
+            >
+              Delete
+            </li>
+          </ul>
+        </div>
+        <p class="card-text">
+          {{ address?.street }}, {{ address?.addressLine2 }},
+          {{ address?.state }}, {{ address?.city }} -
+          {{ address?.pin }}
+        </p>
+        <!-- <div class="d-flex justify-content-end mb-2">
+          <i class="fa-solid fa-trash-can text-danger"></i>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">{{ modalTitle }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" *ngIf="modalTitle === 'Update Profile'">
+        <form class="rounded p-4 p-sm-3" [formGroup]="updateProfileForm">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-success"
+            (click)="submitProfileUpdate()"
+            data-bs-dismiss="modal"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div class="modal-body" *ngIf="modalTitle === 'Add Address'">
+        <form class="rounded p-4 p-sm-3" [formGroup]="addAddressForm">
+          <div class="mb-3">
+            <label for="street" class="form-label">Street 1</label>
+            <input type="text" class="form-control" formControlName="street" />
+          </div>
+          <div class="mb-3">
+            <label for="addressLine2" class="form-label">Street 2</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="addressLine2"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" formControlName="state" />
+          </div>
+          <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" formControlName="city" />
+          </div>
+          <div class="mb-3">
+            <label for="pin" class="form-label">Pin</label>
+            <input type="text" class="form-control" formControlName="pin" />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-success"
+            (click)="submitAddAddress()"
+            data-bs-dismiss="modal"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div class="modal-body" *ngIf="modalTitle === 'Edit Address'">
+        <form class="rounded p-4 p-sm-3" [formGroup]="addAddressForm">
+          <div class="mb-3">
+            <label for="street" class="form-label">Street 1</label>
+            <input type="text" class="form-control" formControlName="street" />
+          </div>
+          <div class="mb-3">
+            <label for="addressLine2" class="form-label">Street 2</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="addressLine2"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" formControlName="state" />
+          </div>
+          <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" formControlName="city" />
+          </div>
+          <div class="mb-3">
+            <label for="pin" class="form-label">Pin</label>
+            <input type="text" class="form-control" formControlName="pin" />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-success"
+            (click)="submitEditAddress()"
+            data-bs-dismiss="modal"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div class="modal-body" *ngIf="modalTitle === 'Update Image'">
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Choose Image :</label>
+            <input
+              type="file"
+              class="form-control"
+              (change)="onFileSelect($event)"
+            />
+          </div>
+          <div class="mb-3">
+            <img
+              *ngIf="previewImage"
+              [src]="previewImage"
+              style="width: 50px; height: 50px"
+              class="rounded-circle"
+            />
+          </div>
+          <div class="mb-3">
+            <button
+              class="btn btn-success"
+              type="button"
+              (click)="submitImage()"
+              data-bs-dismiss="modal"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

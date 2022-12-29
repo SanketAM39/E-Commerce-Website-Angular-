@@ -1,0 +1,96 @@
+<section class="gradient-custom">
+  <div class="container py-5 px-5">
+    <div class="row justify-content-center align-items-center">
+      <div
+        class="col-12 col-lg-9 col-xl-7 text-center"
+        style="border-radius: 15px"
+      >
+        <span class="fs-3">Register</span>
+      </div>
+      <form class="" [formGroup]="customerRegisterForm">
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <div class="form-outlinw">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                id="name"
+                formControlName="name"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              formControlName="email"
+            />
+            <div class="form-text"></div>
+          </div>
+        </div>
+
+        <div class="row" formGroupName="address">
+          <div class="mb-3">
+            <label class="form-label">Address Line 1</label>
+            <input type="text" class="form-control" formControlName="street" />
+            <div class="form-text"></div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Address Line 2</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="addressLine2"
+            />
+            <div class="form-text"></div>
+          </div>
+          <div class="row mb-3 d-flex justify-content-evenly">
+            <div class="col">
+              <label class="form-label">State</label>
+              <input type="text" class="form-control" formControlName="state" />
+            </div>
+            <div class="col">
+              <label class="form-label">City</label>
+              <input type="text" class="form-control" formControlName="city" />
+            </div>
+            <div class="col">
+              <label class="form-label">Pin</label>
+              <input type="text" class="form-control" formControlName="pin" />
+            </div>
+          </div>
+          <div class="form-text"></div>
+        </div>
+        <div class="row">
+          <div class="col mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              formControlName="password"
+            />
+            <div class="form-text"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4 offset-4">
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                (click)="handleRegister()"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

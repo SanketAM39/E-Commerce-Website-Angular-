@@ -1,0 +1,113 @@
+<div class="container">
+  <form class="" [formGroup]="loginForm">
+    <div class="row g-0">
+      <div class="col text-center p-2 mb-3">
+        <h1 class="h3m">Login</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+        />
+        <div class="form-text"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          [type]="showHidePassToggle"
+          class="form-control"
+          formControlName="password"
+        />
+        <div class="d-flex justify-content-end">
+          <i
+            *ngIf="showHidePassToggle === 'password'"
+            class="fa-regular fa-eye-slash"
+            (click)="showPassToggle()"
+            style="cursor: pointer; margin-top: -27px; margin-right: 12px"
+          ></i>
+          <i
+            *ngIf="showHidePassToggle === 'text'"
+            class="fa-regular fa-eye"
+            style="cursor: pointer; margin-top: -27px; margin-right: 12px"
+            (click)="showPassToggle()"
+          ></i>
+        </div>
+        <div class="form-text"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 mb-3">
+        <div class="d-grid">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            (click)="handleSubmit()"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      style="color: blue; cursor: pointer"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop"
+    >
+      Forget Password?
+    </div>
+  </form>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Verify your Email</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form class="rounded p-4 p-sm-3" [formGroup]="loginForm">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-success"
+            data-bs-dismiss="modal"
+            routerLink="/seller/auth/reset-password"
+            (click)="handlePassChange()"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        {{ todayDate | date : "dd/MM/yyyy" }}
+      </div>
+    </div>
+  </div>
+</div>

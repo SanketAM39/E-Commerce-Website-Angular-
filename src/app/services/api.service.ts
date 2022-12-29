@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  baseUrl: String = 'https://shop-api.ngminds.com';
+  baseUrl: String = "https://shop-api.ngminds.com";
 
   post(url: any, data: any) {
     return this.http.post(`${this.baseUrl}${url}`, data);
@@ -17,11 +17,14 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}${url}`);
   }
 
-  delete(url: any, id: number) {
+  delete(url: any, id: any) {
     return this.http.delete(`${this.baseUrl}${url}${id}`);
   }
 
   patch(url: any, id: string, data: any) {
+    return this.http.patch(`${this.baseUrl}${url}${id}`, data);
+  }
+  put(url: any, id: string, data: any) {
     return this.http.patch(`${this.baseUrl}${url}${id}`, data);
   }
 }

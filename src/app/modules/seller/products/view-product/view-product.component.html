@@ -1,0 +1,157 @@
+<div class="product">
+  <div class="part-image">
+    <div>
+      <i
+        class="back-icon fa-solid fa-arrow-left-long me-5 mb-5 mt-0 text-secondary"
+        style="font-size: 35px; cursor: pointer"
+        routerLink="/seller/products"
+      ></i>
+    </div>
+    <!-- <div class="selected-image"> -->
+    <img src="{{ currentProduct?.images[0].url }}" />
+    <!-- </div> -->
+    <!-- <div
+      class="preview-images"
+      *ngFor="let image of currentProduct?.images; let i = index"
+    >
+      <img [src]="image.url" (click)="selectImage(i)" />
+    </div> -->
+  </div>
+
+  <div class="part-details">
+    <div class="part-details-desc">
+      <h2>Desription :</h2>
+      <p>{{ currentProduct?.description }}</p>
+      <br />
+    </div>
+    <div class="part-details-price">
+      <h3>Price :</h3>
+      <p>{{ currentProduct?.price | currency : "INR" }}</p>
+    </div>
+    <div class="part-details-buttons">
+      <button
+        class="btn btn-outline-primary me-2"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        (click)="setEditValues()"
+      >
+        Edit Product
+      </button>
+      <button class="btn btn-outline-danger me-2" (click)="deleteProduct()">
+        Delete
+      </button>
+      <button
+        class="btn btn-outline-warning"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        (click)="updateImages()"
+      >
+        Edit Images
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Product</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="modalToggle === 'updateProduct'">
+          <form class="rounded p-4 p-sm-3" [formGroup]="editProductForm">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" formControlName="name" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                rows="3"
+                formControlName="description"
+              ></textarea>
+            </div>
+            <div>
+              <label for="price" class="form-label">Price</label>
+              <input
+                type="number"
+                class="form-control"
+                id="price"
+                min="0"
+                formControlName="price"
+              />
+            </div>
+          </form>
+        </div>
+        <div *ngIf="modalToggle === 'updateImages'">
+          <div class="mb-3">
+            <form>
+              <div class="row">
+                <label class="form-label">Choose Images</label>
+                <input
+                  class="form-control form-control-sm"
+                  id="formFileSm"
+                  type="file"
+                  multiple
+                  (change)="onFileSelect($event)"
+                  formControlName="images"
+                />
+              </div>
+              <div class="row">
+                <label class="form-label">Images to delete : </label>
+                <div
+                  *ngFor="let image of currentProduct?.images"
+                  class="preview mb-1"
+                >
+                  <img
+                    src="{{ image.url }}"
+                    style="width: 80px; height: 100px"
+                    class="rounded-2"
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="d-flex justify-content-end mt-2">
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  data-bs-dismiss="modal"
+                  (click)="updateImages()"
+                >
+                  Edit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" *ngIf="modalToggle === 'updateProduct'">
+        <button
+          type="button"
+          class="btn btn-warning"
+          data-bs-dismiss="modal"
+          (click)="submitUpdateProduct()"
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
