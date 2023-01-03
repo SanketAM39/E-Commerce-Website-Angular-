@@ -1,0 +1,34 @@
+<div class="card mb-3" style="width: 500px">
+  <div class="row g-0">
+    <div class="col-md-4" style="object-fit: cover">
+      <img
+        [src]="cartProducts?.images[0]?.url"
+        class="img-fluid rounded-star cart-img"
+        alt="..."
+      />
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ cartProducts?.name }}</h5>
+        <p class="card-text">{{ cartProducts?.description }}</p>
+        <p class="card-text">
+          <small class="text-muted">{{
+            cartProducts?.price | currency : "INR"
+          }}</small>
+        </p>
+        <div class="cart-btn">
+          <div class="delete-item me-3">
+            <i class="fa-solid fa-minus" (click)="onDecrement()"></i>
+          </div>
+          <div class="item-count me-3">
+            <span>{{ cartItemCount$ | async }}</span>
+          </div>
+          <div class="add-item me-3" (click)="onIncrement()">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <p style="cursor: pointer" (click)="onReset()">Remove Item</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

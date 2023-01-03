@@ -7,15 +7,10 @@
         routerLink="/seller/products"
       ></i>
     </div>
-    <!-- <div class="selected-image"> -->
-    <img src="{{ currentProduct?.images[0].url }}" />
-    <!-- </div> -->
-    <!-- <div
-      class="preview-images"
-      *ngFor="let image of currentProduct?.images; let i = index"
-    >
-      <img [src]="image.url" (click)="selectImage(i)" />
-    </div> -->
+    <img
+      src="{{ currentProduct?.images[0].url }}"
+      *ngIf="currentProduct.images.length !== 0"
+    />
   </div>
 
   <div class="part-details">
@@ -44,7 +39,7 @@
         class="btn btn-outline-warning"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
-        (click)="updateImages()"
+        (click)="updateImagesToggle()"
       >
         Edit Images
       </button>
@@ -65,7 +60,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Product</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          {{ modalToggle }}
+        </h1>
         <button
           type="button"
           class="btn-close"
@@ -100,10 +97,10 @@
             </div>
           </form>
         </div>
-        <div *ngIf="modalToggle === 'updateImages'">
+        <div *ngIf="modalToggle === 'Update Images'">
           <div class="mb-3">
-            <form>
-              <div class="row">
+            <form [formGroup]="updateImagesForm">
+              <div class="row mb-3">
                 <label class="form-label">Choose Images</label>
                 <input
                   class="form-control form-control-sm"
@@ -111,31 +108,58 @@
                   type="file"
                   multiple
                   (change)="onFileSelect($event)"
-                  formControlName="images"
+                  formControlName="new_images"
                 />
               </div>
-              <div class="row">
-                <label class="form-label">Images to delete : </label>
+              <div class="row mb-3 delete-images-div">
                 <div
-                  *ngFor="let image of currentProduct?.images"
-                  class="preview mb-1"
+                  class="image-section flex align-items-center"
+                  *ngFor="let image of previewImages"
                 >
                   <img
-                    src="{{ image.url }}"
-                    style="width: 80px; height: 100px"
-                    class="rounded-2"
+                    [src]="image"
+                    style="width: 60px; height: 60px; cursor: pointer"
+                    class="rounded-circle"
                   />
                 </div>
               </div>
+              <label class="form-label me-1">Images to delete : </label>
+              <div
+                class="row delete-images-div"
+                *ngIf="uniqueSet.length !== copyImages.length"
+              >
+                <div
+                  class="image-section"
+                  *ngFor="let image of copyImages; let i = index"
+                >
+                  <img
+                    *ngIf="image !== ''"
+                    class="rounded-circle me-1"
+                    src="{{ image?.url }}"
+                    style="width: 60px; height: 60px; cursor: pointer"
+                    (click)="removeImages(image.public_id, i)"
+                  />
+                  <div class="cancel-mark">
+                    <i
+                      *ngIf="image !== ''"
+                      class="fa-solid fa-xmark"
+                      (click)="removeImages(image.public_id, i)"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+              <small>
+                <b>Files Selected : {{ uniqueSet.length }}</b>
+              </small>
               <br />
               <div class="d-flex justify-content-end mt-2">
                 <button
                   type="button"
                   class="btn btn-warning"
                   data-bs-dismiss="modal"
-                  (click)="updateImages()"
+                  (click)="updateImages(currentProduct._id)"
                 >
-                  Edit
+                  Update Images
                 </button>
               </div>
             </form>

@@ -1,0 +1,43 @@
+.cart-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.cart-btn {
+  /* border: 1px solid black; */
+  /* width: px; */
+  /* height: 25px; */
+  display: flex;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  padding: 0%;
+}
+
+.add-item {
+  width: 35px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.delete-item {
+  width: 35px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.item-count {
+  width: 50px;
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

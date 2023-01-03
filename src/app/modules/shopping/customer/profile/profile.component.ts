@@ -1,16 +1,16 @@
-import Swal from "sweetalert2";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { Router } from "@angular/router";
-import { ApiService } from "src/app/services/api.service";
+import Swal from 'sweetalert2';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.css"],
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  modalTitle: string = "Update Profile";
+  modalTitle: string = 'Update Profile';
   savedAddresses: any = [];
   editAddressId: any;
   showSaveAddresses: boolean = false;
@@ -31,35 +31,35 @@ export class ProfileComponent implements OnInit {
     console.log(this.showSaveAddresses);
     this.getProfile();
     this.updateProfileForm = this.fb.group({
-      name: [""],
-      email: [""],
+      name: [''],
+      email: [''],
     });
     this.addAddressForm = this.fb.group({
-      street: [""],
-      addressLine2: [""],
-      city: [""],
-      state: [""],
-      pin: [""],
+      street: [''],
+      addressLine2: [''],
+      city: [''],
+      state: [''],
+      pin: [''],
     });
     this.addPictureForm = this.fb.group({
-      picture: [""],
+      picture: [''],
     });
   }
   getProfile() {
-    this.api.get("/shop/auth/self").subscribe({
+    this.api.get('/shop/auth/self').subscribe({
       next: (res) => {
         console.log(res);
         this.userData = res;
       },
       error: (err) => {
         console.log(err);
-        alert("Error");
+        alert('Error');
       },
     });
   }
 
   editPictureModal() {
-    this.modalTitle = "Update Image";
+    this.modalTitle = 'Update Image';
   }
   onFileSelect(event: any) {
     const reader = new FileReader();
@@ -71,10 +71,10 @@ export class ProfileComponent implements OnInit {
   }
   submitImage() {
     const formData = new FormData();
-    formData.append("picture", this.selectedImage);
+    formData.append('picture', this.selectedImage);
     console.log(formData);
 
-    this.api.post("/customers/profile-picture", formData).subscribe({
+    this.api.post('/customers/profile-picture', formData).subscribe({
       next: (res) => {
         console.log(res);
         this.getProfile();
@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteProfilePicture() {
-    this.api.delete("/customers/profile-picture", "").subscribe({
+    this.api.delete('/customers/profile-picture', '').subscribe({
       next: (res) => {
         console.log(res);
         this.getProfile();
@@ -99,31 +99,31 @@ export class ProfileComponent implements OnInit {
   }
 
   editProfileModal() {
-    this.modalTitle = "Update Profile";
-    this.updateProfileForm.controls["name"].setValue(this.userData.name);
-    this.updateProfileForm.controls["email"].setValue(this.userData.email);
+    this.modalTitle = 'Update Profile';
+    this.updateProfileForm.controls['name'].setValue(this.userData.name);
+    this.updateProfileForm.controls['email'].setValue(this.userData.email);
   }
   addAddressModal() {
-    this.modalTitle = "Add Address";
+    this.modalTitle = 'Add Address';
   }
 
   submitProfileUpdate() {
-    this.modalTitle = "Update Profile";
+    this.modalTitle = 'Update Profile';
     console.log(this.userData._id);
     this.api
-      .patch("/customers/update-profile", "", this.updateProfileForm.value)
+      .patch('/customers/update-profile', '', this.updateProfileForm.value)
       .subscribe({
         next: (res) => {
           console.log(res);
           Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Suceesfully Updated!",
+            position: 'top-end',
+            icon: 'success',
+            title: 'Suceesfully Updated!',
             showConfirmButton: false,
             timer: 1500,
           });
           this.getProfile();
-          this.modalTitle = "Add Address";
+          this.modalTitle = 'Add Address';
         },
         error: (err) => {
           console.log(err);
@@ -133,11 +133,11 @@ export class ProfileComponent implements OnInit {
 
   submitAddAddress() {
     console.log(this.addAddressForm.value);
-    this.api.post("/customers/address", this.addAddressForm.value).subscribe({
+    this.api.post('/customers/address', this.addAddressForm.value).subscribe({
       next: (res) => {
         console.log(res);
         this.getAddresses();
-        alert("Added!");
+        alert('Added!');
         this.addAddressForm.reset();
       },
       error: (err) => {
@@ -153,7 +153,7 @@ export class ProfileComponent implements OnInit {
       this.showSaveAddresses = true;
     }
     console.log(this.showSaveAddresses);
-    this.api.get("/customers/address").subscribe({
+    this.api.get('/customers/address').subscribe({
       next: (res) => {
         console.log(res);
         this.savedAddresses = res;
@@ -173,20 +173,20 @@ export class ProfileComponent implements OnInit {
   getIdAddress(id: any, index: any) {
     console.log(index, id);
     this.editAddressId = id;
-    this.modalTitle = "Edit Address";
-    this.addAddressForm.controls["street"].setValue(
+    this.modalTitle = 'Edit Address';
+    this.addAddressForm.controls['street'].setValue(
       this.savedAddresses[index]?.street
     );
-    this.addAddressForm.controls["addressLine2"].setValue(
+    this.addAddressForm.controls['addressLine2'].setValue(
       this.savedAddresses[index]?.addressLine2
     );
-    this.addAddressForm.controls["city"].setValue(
+    this.addAddressForm.controls['city'].setValue(
       this.savedAddresses[index]?.city
     );
-    this.addAddressForm.controls["state"].setValue(
+    this.addAddressForm.controls['state'].setValue(
       this.savedAddresses[index]?.state
     );
-    this.addAddressForm.controls["pin"].setValue(
+    this.addAddressForm.controls['pin'].setValue(
       this.savedAddresses[index]?.pin
     );
   }
@@ -194,15 +194,15 @@ export class ProfileComponent implements OnInit {
   // Submitting an Updated address
   submitEditAddress() {
     this.api
-      .put("/customers/address", this.editAddressId, this.addAddressForm)
+      .put('/customers/address', this.editAddressId, this.addAddressForm)
       .subscribe({
         next: (res: any) => {
           console.log(res);
           this.getAddresses();
           Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Suceesfully Updated!",
+            position: 'top-end',
+            icon: 'success',
+            title: 'Suceesfully Updated!',
             showConfirmButton: false,
             timer: 1500,
           });
@@ -217,15 +217,15 @@ export class ProfileComponent implements OnInit {
   deleteAddress(id: any) {
     console.log(id);
     Swal.fire({
-      title: "Are you sure?",
-      icon: "warning",
+      title: 'Are you sure?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Delete it!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.api.delete("/customers/address/", this.editAddressId).subscribe({
+        this.api.delete('/customers/address/', this.editAddressId).subscribe({
           next: (res) => {
             console.log(res);
 
@@ -244,12 +244,12 @@ export class ProfileComponent implements OnInit {
    */
   deleteCustomer() {
     Swal.fire({
-      title: "Are you sure?",
-      icon: "warning",
+      title: 'Are you sure?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Delete account!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Delete account!',
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(this.userData._id);

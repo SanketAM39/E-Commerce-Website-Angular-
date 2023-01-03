@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { ApiService } from "src/app/services/api.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: "app-list-products",
-  templateUrl: "./list-products.component.html",
-  styleUrls: ["./list-products.component.css"],
+  selector: 'app-list-products',
+  templateUrl: './list-products.component.html',
+  styleUrls: ['./list-products.component.css'],
 })
 export class ListProductsComponent implements OnInit {
   constructor(private fb: FormBuilder, private api: ApiService) {}
@@ -14,10 +14,10 @@ export class ListProductsComponent implements OnInit {
     this.getProducts();
 
     this.createProductForm = this.fb.group({
-      name: [""],
-      description: [""],
-      images: [""],
-      price: [""],
+      name: [''],
+      description: [''],
+      images: [''],
+      price: [''],
     });
   }
 
@@ -62,14 +62,15 @@ export class ListProductsComponent implements OnInit {
 
   submitProduct = () => {
     const formData = new FormData();
-    formData.append("name", this.createProductForm.value.name);
-    formData.append("description", this.createProductForm.value.description);
+    formData.append('name', this.createProductForm.value.name);
+    formData.append('description', this.createProductForm.value.description);
     for (let i = 0; i < this.files.length; i++) {
-      formData.append("images", this.files[i]);
+      formData.append('images', this.files[i]);
     }
-    formData.append("price", this.createProductForm.value.price);
+    formData.append('price', this.createProductForm.value.price);
 
-    this.api.post("/products", formData).subscribe({
+    console.log(formData);
+    this.api.post('/products', formData).subscribe({
       next: (res: any) => {
         console.log(res);
         this.files = [];

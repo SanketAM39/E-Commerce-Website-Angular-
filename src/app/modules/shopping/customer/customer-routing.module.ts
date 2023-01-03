@@ -1,20 +1,20 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { CartComponent } from "./profile/cart/cart.component";
-import { ProfileComponent } from "./profile/profile.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CartComponent } from './cart/cart.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "profile",
-    pathMatch: "full",
+    path: '',
+    redirectTo: 'profile',
+    pathMatch: 'full',
   },
   {
-    path: "profile",
+    path: 'profile',
     component: ProfileComponent,
   },
   {
-    path: "cart",
+    path: 'cart',
     component: CartComponent,
   },
 ];

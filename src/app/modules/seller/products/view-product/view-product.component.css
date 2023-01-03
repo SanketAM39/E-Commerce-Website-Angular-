@@ -28,9 +28,24 @@
   transform: scale(1.5);
   color: cadetblue;
 }
-.preview {
+
+.delete-images-div {
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: row;
+  padding: 0%;
+}
+.image-section {
+  width: 90px;
+  height: 70px;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+.cancel-mark {
+  color: red;
+  cursor: pointer;
 }
 .part-details {
   width: 50%;
