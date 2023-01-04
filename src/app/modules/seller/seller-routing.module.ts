@@ -1,41 +1,41 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { VerifyEmailComponent } from "src/app/modules/seller/user/verify-email/verify-email.component";
-import { AuthGuard, LogInGuard } from "../../services/guard/auth.guard";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { VerifyEmailComponent } from 'src/app/modules/seller/user/verify-email/verify-email.component';
+import { AuthGuard, LogInGuard } from '../../services/guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: "auth",
+    path: 'auth',
     loadChildren: () =>
-      import("src/app/modules/seller/auth/auth.module").then(
+      import('src/app/modules/seller/auth/auth.module').then(
         (m) => m.AuthModule
       ),
     canActivate: [LogInGuard],
   },
   {
-    path: "",
+    path: '',
     loadChildren: () =>
-      import("src/app/modules/seller/user/user.module").then(
+      import('src/app/modules/seller/user/user.module').then(
         (m) => m.UserModule
       ),
     canActivate: [AuthGuard],
   },
   {
-    path: "products",
+    path: 'products',
     loadChildren: () =>
-      import("src/app/modules/seller/products/products.module").then(
+      import('src/app/modules/seller/products/products.module').then(
         (m) => m.ProductsModule
       ),
     canActivate: [AuthGuard],
   },
   {
-    path: "auth/verify-email",
+    path: 'auth/verify-email',
     component: VerifyEmailComponent,
   },
   {
-    path: "**",
+    path: '**',
     loadChildren: () =>
-      import("src/app/modules/seller/auth/auth.module").then(
+      import('src/app/modules/seller/auth/auth.module').then(
         (m) => m.AuthModule
       ),
     canActivate: [LogInGuard],

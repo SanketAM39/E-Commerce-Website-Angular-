@@ -12,6 +12,7 @@
 .card:hover {
   transform: scale(1.05);
 }
+
 .main-body {
   justify-content: center;
 }
@@ -35,6 +36,13 @@ p {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+.card-title {
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card-price-tag {
   display: flex;

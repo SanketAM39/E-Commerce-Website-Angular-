@@ -43,6 +43,10 @@
 }
 .card {
   transition: 240ms;
+}
+.card-title {
+  text-align: center;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

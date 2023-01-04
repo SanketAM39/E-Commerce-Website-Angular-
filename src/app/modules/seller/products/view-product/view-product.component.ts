@@ -27,6 +27,7 @@ export class ViewProductComponent implements OnInit {
   uniqueSet: any = [];
   copyImages: any = [];
   modalToggle: string = 'updateProduct';
+  randomNumber = Math.floor(Math.random() * 2);
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data: any) => {
@@ -34,15 +35,11 @@ export class ViewProductComponent implements OnInit {
     });
 
     this.getProducts();
-
+    console.log(this.copyImages?.length);
     this.editProductForm = this.fb.group({
       name: [''],
       description: [''],
       price: [''],
-    });
-    this.updateImagesForm = this.fb.group({
-      new_images: [''],
-      delete: [],
     });
   }
   getProducts() {

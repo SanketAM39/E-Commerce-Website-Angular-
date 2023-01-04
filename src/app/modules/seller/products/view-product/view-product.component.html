@@ -8,8 +8,8 @@
       ></i>
     </div>
     <img
-      src="{{ currentProduct?.images[0].url }}"
-      *ngIf="currentProduct.images.length !== 0"
+      src="{{ currentProduct?.images[randomNumber]?.url }}"
+      *ngIf="currentProduct?.images.length !== 0"
     />
   </div>
 
@@ -136,8 +136,7 @@
                     *ngIf="image !== ''"
                     class="rounded-circle me-1"
                     src="{{ image?.url }}"
-                    style="width: 60px; height: 60px; cursor: pointer"
-                    (click)="removeImages(image.public_id, i)"
+                    style="width: 60px; height: 60px"
                   />
                   <div class="cancel-mark">
                     <i
