@@ -1,0 +1,79 @@
+<section class="">
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center py-5">
+      <div class="col-md-7 col-lg-5 col-xl-4">
+        <div class="card" style="border-radius: 15px">
+          <div class="card-body p-4">
+            <form [formGroup]="cardDetailsForm">
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <div class="form-outline">
+                  <input
+                    type="text"
+                    class="form-control form-control-lg me-1"
+                    minlength="16"
+                    maxlength="16"
+                    formControlName="cardNumber"
+                  />
+                  <label class="form-label" for="typeText">Card Number</label>
+                </div>
+                <div class="my-auto">
+                  <i class="fa-brands fa-cc-visa" style="font-size: 30px"></i>
+                </div>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-4"
+              >
+                <div class="form-outline">
+                  <input
+                    type="text"
+                    class="form-control form-control-md"
+                    formControlName="nameOnCard"
+                  />
+                  <label class="form-label" for="typeName"
+                    >Cardholder's Name</label
+                  >
+                </div>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center pb-2"
+              >
+                <div class="form-outline">
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    placeholder="MM/YYYY"
+                    formControlName="expiry"
+                    minlength="7"
+                    maxlength="7"
+                  />
+                  <label class="form-label" for="typeExp">Expiration</label>
+                </div>
+                <div class="form-outline">
+                  <input
+                    type="password"
+                    class="form-control form-control-sm"
+                    formControlName="cvv"
+                    minlength="3"
+                    maxlength="3"
+                  />
+                  <label class="form-label" for="typeText2">Cvv</label>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-info btn-sm btn-rounded"
+                  (click)="confirmPayment()"
+                >
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

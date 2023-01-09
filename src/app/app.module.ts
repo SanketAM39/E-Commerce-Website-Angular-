@@ -17,7 +17,7 @@ import {
 import { SellerModule } from './modules/seller/seller.module';
 import { ShoppingModule } from './modules/shopping/shopping.module';
 import { StoreModule } from '@ngrx/store';
-import { addCartReducer, cartReducer } from './store/reducers/reducer';
+import { _customerReducer } from './store/reducers/reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
@@ -33,8 +33,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     SocialLoginModule,
     NgxPaginationModule,
     StoreModule.forRoot({
-      cartItemCount: addCartReducer,
-      cartEntries: cartReducer,
+      cart: _customerReducer,
     }),
     StoreDevtoolsModule.instrument({ logOnly: !isDevMode() }),
   ],

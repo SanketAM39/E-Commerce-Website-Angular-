@@ -1,10 +1,26 @@
 import { createAction, props } from '@ngrx/store';
 import { Product } from '../state/state';
 
-export const increment = createAction('[Counter Component] Increment');
-export const decrement = createAction('[Counter Component] Decrement');
-export const reset = createAction('[Counter Component] Reset');
+export const addToCart = createAction(
+  'addToCart',
+  props<{ product: Product }>()
+);
+export const removeFromCart = createAction(
+  'removeFromCart',
+  props<{ product: Product }>()
+);
+export const increCount = createAction(
+  'increCount',
+  props<{ product: Product }>()
+);
+export const decreCount = createAction(
+  'decreCount',
+  props<{ product: Product }>()
+);
 
-export const addProduct = createAction('Add Product', props<Product>());
-export const removeProduct = createAction('Remove Product', props<Product>());
-export const clearCart = createAction('Clear Cart');
+export const sumUpTotalAmount = createAction('sumUpTotalAmount');
+
+export const clearCart = createAction('clearCart');
+
+export const addToBuyNow = createAction('addToBuyNow', props<any>());
+export const removeFromBuyNow = createAction('removeFromBuyNow');

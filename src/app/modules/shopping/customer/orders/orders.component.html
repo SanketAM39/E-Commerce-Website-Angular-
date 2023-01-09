@@ -1,0 +1,48 @@
+<div>
+  <nav class="navbar">
+    <div class="navbar-1" routerLink="">
+      <img src="../../../assets/CompanyLogo.svg" style="cursor: pointer" />
+    </div>
+  </nav>
+</div>
+
+<div class="container mx-auto px-3 mt-3">
+  <div
+    class="card text-center mb-3"
+    *ngFor="let order of totalOrders; let i = index"
+  >
+    <div class="card-header d-flex py-auto justify-content-center">
+      <!-- <i
+        class="fa-solid fa-circle me-1 mt-2"
+        style="color: red; font-size: 10px"
+      ></i> -->
+      <p class="">2 days ago</p>
+    </div>
+    <div class="card-body d-flex">
+      <div>
+        <img />
+      </div>
+      <div class="mx-auto">
+        <h5 class="card-title">Total Items : {{ order.items.length }}</h5>
+        <p class="card-text">
+          <li *ngFor="let item of order.items" style="list-style: none">
+            {{ item.name }}
+          </li>
+        </p>
+        <p class="blink-text" *ngIf="order.status === 'Pending'">
+          Your Order Payment is {{ order.status }}
+        </p>
+        <p>{{ order.total | currency : "INR" }}</p>
+        <button
+          class="btn btn-primary"
+          routerLink="/customer/orders/{{ order._id }}"
+        >
+          See Details
+        </button>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      <p>Address : {{ order.address.street }}</p>
+    </div>
+  </div>
+</div>

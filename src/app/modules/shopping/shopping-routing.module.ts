@@ -1,31 +1,36 @@
 import {
   customerGuard,
   ShoppingGuard,
-} from "./../../services/guard/shopping.guard";
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "./home/home.component";
+} from './../../services/guard/shopping.guard';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home/home.component';
+import { CartComponent } from './home/cart/cart.component';
 
 const routes: Routes = [
   {
-    path: "",
-    component: HomeComponent,
-  },
-  {
-    path: "auth",
+    path: '',
     loadChildren: () =>
-      import("src/app/modules/shopping/auth/auth.module").then(
+      import('src/app/modules/shopping/home/home.module').then(
+        (m) => m.HomeModule
+      ),
+  },
+
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('src/app/modules/shopping/auth/auth.module').then(
         (m) => m.AuthModule
       ),
-    canActivate: [ShoppingGuard],
+    // canActivate: [ShoppingGuard],
   },
   {
-    path: "customer",
+    path: 'customer',
     loadChildren: () =>
-      import("src/app/modules/shopping/customer/customer.module").then(
+      import('src/app/modules/shopping/customer/customer.module').then(
         (m) => m.CustomerModule
       ),
-    canActivate: [customerGuard],
+    // canActivate: [customerGuard],
   },
 ];
 

@@ -4,10 +4,18 @@ import { CommonModule } from '@angular/common';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { ProfileComponent } from './profile/profile.component';
-import { CartComponent } from './cart/cart.component';
+import { OrdersComponent } from './orders/orders.component';
+import { PaymentComponent } from './payment/payment.component';
+
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
-  declarations: [ProfileComponent, CartComponent],
+  declarations: [
+    ProfileComponent,
+    OrdersComponent,
+    PaymentComponent,
+    OrderDetailsComponent,
+  ],
   imports: [CommonModule, CustomerRoutingModule, ReactiveFormsModule],
 })
 export class CustomerModule {}

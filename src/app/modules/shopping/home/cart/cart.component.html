@@ -1,0 +1,63 @@
+<div class="container m-3 p-4">
+  <div class="d-flex justify-content-evenly mb-3">
+    <div>
+      <h3>Total Payable Amount</h3>
+      <h5>{{ totalPrice | currency : "INR" }}</h5>
+    </div>
+    <div>
+      <button
+        class="btn btn-warning"
+        (click)="placeOrder()"
+       
+      >
+        Place Order
+      </button>
+    </div>
+  </div>
+  <div class="">
+    <div
+      class="card mb-3 mx-auto"
+      style="width: 500px"
+      *ngFor="let item of cartProducts; let i = index"
+    >
+      <div class="row g-0">
+        <div class="col-md-4" style="object-fit: cover">
+          <img
+            [src]="item.images[0].url"
+            class="img-fluid rounded-star cart-img"
+            alt="..."
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ item?.name }}</h5>
+            <p class="card-text">{{ item?.description }}</p>
+            <p class="card-text">
+              <!-- <small class="text-muted">{{ item?.price | currency : "INR" }}</small> -->
+              <small class="text-muted">{{
+                item?.subTotal | currency : "INR"
+              }}</small>
+            </p>
+            <div class="cart-btn">
+              <div class="delete-item me-3">
+                <i
+                  class="fa-solid fa-minus"
+                  (click)="decreseProductCount(item)"
+                ></i>
+              </div>
+              <div class="item-count me-3">
+                <span>{{ item?.qty }}</span>
+              </div>
+              <div class="add-item me-3" (click)="increseProductCount(item)">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <p style="cursor: pointer" (click)="removeFromCart(item)">
+                Remove Item
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
