@@ -1,12 +1,12 @@
 export const initialState: customerState = {
+  allProducts: [],
   cart: [],
-  buyNow: [],
   totalAmount: 0,
 };
 
 export interface customerState {
+  allProducts: [];
   cart: Product[];
-  buyNow: Product[];
   totalAmount: number;
 }
 

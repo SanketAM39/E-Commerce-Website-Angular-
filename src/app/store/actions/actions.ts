@@ -1,26 +1,25 @@
-import { createAction, props } from '@ngrx/store';
-import { Product } from '../state/state';
+import { createAction, props } from "@ngrx/store";
+import { Product } from "../state/state";
+
+export const addAllProducts = createAction("addAllProducts");
 
 export const addToCart = createAction(
-  'addToCart',
+  "addToCart",
   props<{ product: Product }>()
 );
 export const removeFromCart = createAction(
-  'removeFromCart',
+  "removeFromCart",
   props<{ product: Product }>()
 );
 export const increCount = createAction(
-  'increCount',
+  "increCount",
   props<{ product: Product }>()
 );
 export const decreCount = createAction(
-  'decreCount',
+  "decreCount",
   props<{ product: Product }>()
 );
 
-export const sumUpTotalAmount = createAction('sumUpTotalAmount');
+export const sumUpTotalAmount = createAction("sumUpTotalAmount");
 
-export const clearCart = createAction('clearCart');
-
-export const addToBuyNow = createAction('addToBuyNow', props<any>());
-export const removeFromBuyNow = createAction('removeFromBuyNow');
+export const clearCart = createAction("clearCart");

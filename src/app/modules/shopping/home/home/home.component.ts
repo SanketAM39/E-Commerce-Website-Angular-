@@ -1,20 +1,18 @@
-import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
-import Swal from 'sweetalert2';
-import { Store } from '@ngrx/store';
-import { addToCart } from 'src/app/store/actions/actions';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { ApiService } from "src/app/services/api.service";
+import Swal from "sweetalert2";
+import { Store } from "@ngrx/store";
+import { addToCart } from "src/app/store/actions/actions";
+import { Router } from "@angular/router";
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
   cartProducts: any;
   totalPrice: number = 0;
-  // productAdded: boolean = false;
 
   constructor(
     private api: ApiService,
@@ -24,10 +22,9 @@ export class HomeComponent implements OnInit {
       cart: { cart: any; totalAmount: any; productAdded: boolean };
     }>
   ) {
-    this.store.select('cart').subscribe((data) => {
+    this.store.select("cart").subscribe((data) => {
       this.cartProducts = data.cart;
       this.totalPrice = data.totalAmount;
-      // this.productAdded = data.cart.productAdded;
     });
   }
 
@@ -36,19 +33,15 @@ export class HomeComponent implements OnInit {
   page: any = 1;
   totalPages!: number;
   changePasswordForm!: FormGroup;
-  cartItemCount$!: Observable<number>;
 
-  token = localStorage.getItem('customer-token');
+  token = localStorage.getItem("customer-token");
   query = `?page=${this.page}&limit=${this.itemsPerPage}`;
 
   ngOnInit(): void {
-    // this.store.select("cartItemCount").subscribe((data) => {
-    //   this.cartItemCount = data.counter;
-    // });
     this.getProducts();
     this.changePasswordForm = this.fb.group({
-      old_password: [''],
-      new_password: [''],
+      old_password: [""],
+      new_password: [""],
     });
   }
 
@@ -67,33 +60,33 @@ export class HomeComponent implements OnInit {
   }
   logOut() {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "Don't be Window Shopper!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Log Out!',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Log Out!",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem('customer-token');
+        localStorage.removeItem("customer-token");
+        window.location.reload();
       }
     });
   }
 
   changePassword() {
-    console.log(this.changePasswordForm.value);
     this.api
-      .post('/customers/auth/change-password', this.changePasswordForm.value)
+      .post("/customers/auth/change-password", this.changePasswordForm.value)
       .subscribe({
         next: (res) => {
           console.log(res);
           this.changePasswordForm.reset();
-          alert('Success!');
-          //  this.toastr.success("Hello world!", "Toastr fun!");
+          alert("Success!");
         },
         error: (err) => {
           console.log(err);
+          alert("Error!");
         },
       });
   }
@@ -115,7 +108,7 @@ export class HomeComponent implements OnInit {
     this.getProducts();
   }
 
-  addToCart(product: any) {
-    this.store.dispatch(addToCart({ product: product }));
+  addToCart(Product: any) {
+    this.store.dispatch(addToCart({ product: Product }));
   }
 }

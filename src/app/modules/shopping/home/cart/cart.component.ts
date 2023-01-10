@@ -1,20 +1,20 @@
-import { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import { Route, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ApiService } from 'src/app/services/api.service';
+import { OnInit } from "@angular/core";
+import { Component } from "@angular/core";
+import { Route, Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { ApiService } from "src/app/services/api.service";
 import {
   clearCart,
   decreCount,
   increCount,
   removeFromCart,
   sumUpTotalAmount,
-} from 'src/app/store/actions/actions';
+} from "src/app/store/actions/actions";
 
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
+  selector: "app-cart",
+  templateUrl: "./cart.component.html",
+  styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit {
   cartProducts: any;
@@ -39,7 +39,7 @@ export class CartComponent implements OnInit {
     private api: ApiService,
     private router: Router
   ) {
-    this.store.select('cart').subscribe((data) => {
+    this.store.select("cart").subscribe((data) => {
       this.cartProducts = data.cart;
       this.orders.items = data.cart;
       console.log(this.orders);
@@ -53,7 +53,7 @@ export class CartComponent implements OnInit {
   }
 
   getAddresses() {
-    this.api.get('/customers/address').subscribe({
+    this.api.get("/customers/address").subscribe({
       next: (res: any) => {
         console.log(res);
         this.orders.address = res[0];
@@ -79,29 +79,28 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart() {
-    alert('your cart will get empty');
+    alert("your cart will get empty");
     this.store.dispatch(clearCart());
   }
 
   placeOrder() {
     console.log(this.orders);
-    if (this.orders.items.length > 0) {
-      this.api.post('/shop/orders', this.orders).subscribe({
+    let temp = localStorage.getItem("customer-token");
+    if (this.orders.items.length > 0 && temp) {
+      this.api.post("/shop/orders", this.orders).subscribe({
         next: (res: any) => {
           console.log(res);
-
-          alert('Success!');
+          alert("Success!");
           this.router.navigateByUrl(`customer/orders/payment/${res.order._id}`);
         },
         error: (err) => {
           console.log(err);
         },
       });
+    } else if (!temp) {
+      alert("Please Login First...");
     } else {
-      alert('Add items to cart');
-      this.router.navigateByUrl(
-        'customer/orders/payment/63bbd3c391435db095c4437e'
-      );
+      alert("Add Items to Cart!");
     }
   }
 }

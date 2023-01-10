@@ -25,6 +25,6 @@ export class ApiService {
     return this.http.patch(`${this.baseUrl}${url}${id}`, data);
   }
   put(url: any, id: string, data: any) {
-    return this.http.patch(`${this.baseUrl}${url}${id}`, data);
+    return this.http.put(`${this.baseUrl}${url}${id}`, data);
   }
 }

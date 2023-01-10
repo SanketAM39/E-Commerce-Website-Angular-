@@ -1,12 +1,21 @@
 .navbar {
   display: flex;
   align-content: center;
-  /* justify-content: space-between; */
   padding: 1rem 5rem 1rem 2rem;
   margin: 0%;
 }
 .main-page {
   display: flex;
+}
+#temp {
+  display: flex;
+  align-content: center;
+  background: transparent;
+  color: black;
+  border: 1px solid #4158d0;
+  border-radius: 5px;
+  /* margin-left: 40rem; */
+  padding: 0.5rem 1rem;
 }
 
 .card-footer {
@@ -20,17 +29,18 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  color: rgb(130, 130, 175);
   /* margin-bottom: 20%; */
   line-height: 10px;
 
   /* Starting position */
-  -moz-transform: translateX(100%);
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
+  /* -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%); */
+  /* transform: translateX(100%); */
   /* Apply animation to this element */
-  -moz-animation: scroll-left 7s linear infinite;
-  -webkit-animation: scroll-left 7s linear infinite;
-  animation: scroll-left 7s linear infinite;
+  /* -moz-animation: scroll-left 20s linear infinite;
+  -webkit-animation: scroll-left 20s linear infinite;
+  animation: scroll-left 20s linear infinite; */
 }
 
 /* Move it (define the animation) */

@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on } from "@ngrx/store";
 import {
   addToCart,
   clearCart,
@@ -6,17 +6,17 @@ import {
   increCount,
   removeFromCart,
   sumUpTotalAmount,
-} from '../actions/actions';
-import { initialState, Product } from '../state/state';
+  addAllProducts,
+} from "../actions/actions";
+import { initialState, Product } from "../state/state";
 
-export interface products {
-  id: string;
-  name: string;
-  img: string;
-  description: string;
-  price: string;
-}
-export const initialCartCount = 0;
+// export interface products {
+//   id: string;
+//   name: string;
+//   img: string;
+//   description: string;
+//   price: string;
+// }
 
 export const _customerReducer = createReducer(
   initialState,
@@ -41,7 +41,7 @@ export const _customerReducer = createReducer(
 
     const found = temp.findIndex((i) => i._id === action.product._id);
     if (found >= 0) {
-      alert('already added to cart');
+      alert("already added to cart");
     } else {
       const objClone = structuredClone(action.product);
       objClone.productAdded = false;

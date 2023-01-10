@@ -1,21 +1,21 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { ApiService } from "src/app/services/api.service";
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css'],
+  selector: "app-payment",
+  templateUrl: "./payment.component.html",
+  styleUrls: ["./payment.component.css"],
 })
 export class PaymentComponent implements OnInit {
   orderId!: string;
   cardDetailsForm!: FormGroup;
-  cardDetails: {} = {
-    cardNumber: 5555555555554444,
-    nameOnCard: 'Sanket Anandkar',
-    expiry: '06/2023',
-    cvv: 541,
+  cardDetails: any = {
+    cardNumber: "5555555555554444",
+    nameOnCard: "Sanket Anandkar",
+    expiry: "06/2023",
+    cvv: "541",
   };
   constructor(
     private api: ApiService,
@@ -43,11 +43,11 @@ export class PaymentComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          alert('Success!');
+          alert("Success!");
         },
         error: (err) => {
           console.log(err);
-          alert('Error!');
+          alert("Error!");
         },
       });
   }

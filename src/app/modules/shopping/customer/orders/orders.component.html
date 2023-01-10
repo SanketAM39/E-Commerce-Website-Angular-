@@ -3,20 +3,80 @@
     <div class="navbar-1" routerLink="">
       <img src="../../../assets/CompanyLogo.svg" style="cursor: pointer" />
     </div>
+    <div class="d-flex align-items-center">
+      <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search for products and more"
+          aria-label="Search"
+          style="width: 500px"
+        />
+        <button class="btn btn-outline-info" type="submit">Search</button>
+      </form>
+    </div>
+    <div>
+      <div class="dropdown me-5">
+        <button
+          id="temp"
+          class="dropdown-toggle d-flex align-items-center justify-content-center"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-regular fa-user"> </i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li
+            class="dropdown-item"
+            style="cursor: pointer"
+            routerLink="/customer/profile"
+          >
+            <i class="fa-regular fa-user me-2"></i>
+            Profile
+          </li>
+          <li
+            class="dropdown-item"
+            style="cursor: pointer"
+            routerLink="/customer/orders"
+          >
+            <i class="fa-solid fa-truck-fast me-2"></i>
+            Orders
+          </li>
+          <li
+            class="dropdown-item"
+            style="cursor: pointer"
+            routerLink="/customer/orders"
+          >
+            <i class="fa-solid fa-heart me-2"></i>
+            Wishlist
+          </li>
+
+          <li class="dropdown-item" style="cursor: pointer">
+            <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
 </div>
 
+<!-- ORDERS -->
 <div class="container mx-auto px-3 mt-3">
   <div
     class="card text-center mb-3"
     *ngFor="let order of totalOrders; let i = index"
   >
-    <div class="card-header d-flex py-auto justify-content-center">
+    <div
+      class="card-header d-flex py-auto justify-content-center align-items-center"
+    >
       <!-- <i
         class="fa-solid fa-circle me-1 mt-2"
         style="color: red; font-size: 10px"
       ></i> -->
-      <p class="">2 days ago</p>
+      <p class="">
+        Status :
+        <b>{{ order.status }}</b>
+      </p>
     </div>
     <div class="card-body d-flex">
       <div>
@@ -24,7 +84,7 @@
       </div>
       <div class="mx-auto">
         <h5 class="card-title">Total Items : {{ order.items.length }}</h5>
-        <p class="card-text">
+        <p class="card-text text-secondary">
           <li *ngFor="let item of order.items" style="list-style: none">
             {{ item.name }}
           </li>
@@ -32,17 +92,32 @@
         <p class="blink-text" *ngIf="order.status === 'Pending'">
           Your Order Payment is {{ order.status }}
         </p>
-        <p>{{ order.total | currency : "INR" }}</p>
+        <h6>
+          <b>
+            {{ order.total | currency : "INR" }}
+          </b>
+        </h6>
         <button
           class="btn btn-primary"
           routerLink="/customer/orders/{{ order._id }}"
         >
           See Details
         </button>
+        <button
+          class="btn btn-warning ms-2"
+          routerLink="/customer/orders/payment/{{ order._id }}"
+          *ngIf="order.status === 'Pending'"
+        >
+          Pay Now
+        </button>
       </div>
     </div>
     <div class="card-footer text-muted">
-      <p>Address : {{ order.address.street }}</p>
+      <p>
+        Address : {{ order.address?.street }},
+        {{ order.address?.addressLine2 }}, {{ order.address?.state }},
+        {{ order.address?.city }} - {{ order.address?.pin }}
+      </p>
     </div>
   </div>
 </div>

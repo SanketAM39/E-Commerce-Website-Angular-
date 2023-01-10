@@ -1,3 +1,13 @@
+.navbar {
+  display: flex;
+  align-content: center;
+  padding: 1rem 5rem 1rem 2rem;
+}
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+}
 .cart-img {
   height: 100%;
   width: 100%;
@@ -40,4 +50,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#temp {
+  display: flex;
+  align-content: center;
+  background: transparent;
+  color: black;
+  border: 1px solid #4158d0;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
 }

@@ -1,19 +1,94 @@
-<div class="container m-3 p-4">
+<div>
+  <nav class="navbar">
+    <div class="navbar-1" routerLink="">
+      <img src="../../../assets/CompanyLogo.svg" style="cursor: pointer" />
+    </div>
+    <div class="d-flex align-items-center">
+      <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search for products and more"
+          aria-label="Search"
+          style="width: 500px"
+        />
+        <button class="btn btn-outline-info" type="submit">Search</button>
+      </form>
+    </div>
+    <div>
+      <div class="dropdown me-5">
+        <button
+          id="temp"
+          class="dropdown-toggle d-flex align-items-center justify-content-center"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-regular fa-user"> </i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li
+            class="dropdown-item"
+            style="cursor: pointer"
+            routerLink="/customer/profile"
+          >
+            <i class="fa-regular fa-user me-2"></i>
+            Profile
+          </li>
+          <li
+            class="dropdown-item"
+            style="cursor: pointer"
+            routerLink="/customer/orders"
+          >
+            <i class="fa-solid fa-truck-fast me-2"></i>
+            Orders
+          </li>
+          <li
+            class="dropdown-item"
+            style="cursor: pointer"
+            routerLink="/customer/orders"
+          >
+            <i class="fa-solid fa-heart me-2"></i>
+            Wishlist
+          </li>
+
+          <li class="dropdown-item" style="cursor: pointer">
+            <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<div
+  *ngIf="cartProducts.length === 0"
+  class="mx-auto container m-3 align-items-center empty-cart"
+>
+  <img
+    src="../../../../../assets/empty-cart-2130356-1800917.webp"
+    class="rounded-circle mx-auto"
+    style="width: 500px; height: 500px"
+  />
+  <h1>Your cart is empty</h1>
+  <h5>
+    Looks like you have not added anything in your cart. Go ahead and explore
+    top categories
+  </h5>
+  <button class="btn btn-primary mt-3" routerLink="">Shop our Products</button>
+</div>
+<div class="container m-3 p-4" *ngIf="cartProducts.length !== 0">
   <div class="d-flex justify-content-evenly mb-3">
     <div>
       <h3>Total Payable Amount</h3>
       <h5>{{ totalPrice | currency : "INR" }}</h5>
     </div>
     <div>
-      <button
-        class="btn btn-warning"
-        (click)="placeOrder()"
-       
-      >
+      <button class="btn btn-warning" (click)="placeOrder()">
         Place Order
       </button>
     </div>
   </div>
+
+  <!-- CARDS -->
   <div class="">
     <div
       class="card mb-3 mx-auto"
