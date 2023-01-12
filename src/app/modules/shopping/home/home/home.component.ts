@@ -13,6 +13,15 @@ import { Router } from "@angular/router";
 export class HomeComponent implements OnInit {
   cartProducts: any;
   totalPrice: number = 0;
+  cart = false;
+  cartLength: any = JSON.parse(localStorage.getItem("cart-products")!);
+  products: any = [];
+  itemsPerPage: number = 20;
+  page: any = 1;
+  totalPages!: number;
+  changePasswordForm!: FormGroup;
+
+  temp: any = [];
 
   constructor(
     private api: ApiService,
@@ -23,16 +32,14 @@ export class HomeComponent implements OnInit {
     }>
   ) {
     this.store.select("cart").subscribe((data) => {
+      // console.log(JSON.parse(localStorage.getItem("cart-products")!) || []);
+      // this.cartProducts =
+      //   JSON.parse(localStorage.getItem("cart-products")!) || [];
+      // this.cartProducts.push(data.cart);
       this.cartProducts = data.cart;
       this.totalPrice = data.totalAmount;
     });
   }
-
-  products: any = [];
-  itemsPerPage: number = 20;
-  page: any = 1;
-  totalPages!: number;
-  changePasswordForm!: FormGroup;
 
   token = localStorage.getItem("customer-token");
   query = `?page=${this.page}&limit=${this.itemsPerPage}`;
@@ -43,6 +50,7 @@ export class HomeComponent implements OnInit {
       old_password: [""],
       new_password: [""],
     });
+    // console.log(this.cartLength);
   }
 
   getProducts() {
@@ -52,6 +60,15 @@ export class HomeComponent implements OnInit {
         console.log(res);
         this.products = res.results;
         this.totalPages = res.totalPages;
+        for (let i = 0; i < res.results.length; i++) {
+          let obj = {
+            _id: 0,
+            status: false,
+          };
+          obj._id = res.results[i]._id;
+          obj.status = false;
+          this.temp.push(obj);
+        }
       },
       error: (err) => {
         console.log(err);
@@ -108,7 +125,17 @@ export class HomeComponent implements OnInit {
     this.getProducts();
   }
 
-  addToCart(Product: any) {
+  addToCart(Product: any, id: string) {
     this.store.dispatch(addToCart({ product: Product }));
+    // let temp = [];
+    // temp.push(Product);
+    // console.log(temp);
+    console.log(Product);
+    // localStorage.setItem("cart-products", JSON.stringify(this.cartProducts));
+    for (let i = 0; i < this.temp.length; i++) {
+      if (this.temp[i]._id == Product._id) {
+        this.temp[i].status = true;
+      }
+    }
   }
 }

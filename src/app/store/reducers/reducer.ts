@@ -41,10 +41,8 @@ export const _customerReducer = createReducer(
 
     const found = temp.findIndex((i) => i._id === action.product._id);
     if (found >= 0) {
-      alert("already added to cart");
     } else {
       const objClone = structuredClone(action.product);
-      objClone.productAdded = false;
       objClone.qty = 1;
       objClone.productId = objClone._id;
       objClone.subTotal = objClone.price;

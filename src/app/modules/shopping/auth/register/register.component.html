@@ -1,4 +1,4 @@
-<section class="gradient-custom">
+<!-- <section class="gradient-custom">
   <div class="container py-5 px-5">
     <div class="row justify-content-center align-items-center">
       <div
@@ -93,4 +93,58 @@
       </form>
     </div>
   </div>
-</section>
+</section> -->
+
+<div class="container1 gradient-custom">
+  <div [formGroup]="customerRegisterForm" class="form">
+    <div class="text-center"><h2 class="mb-3 mx-auto">Register</h2></div>
+    <div class="row mb-3">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+    </div>
+
+    <div class="row mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="email" />
+    </div>
+
+    <div formGroupName="address">
+      <div class="row mb-3">
+        <label class="form-label">Address Line 1</label>
+        <input type="text" class="form-control" formControlName="street" />
+      </div>
+      <div class="row mb-3">
+        <label class="form-label">Address Line 2</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="addressLine2"
+        />
+      </div>
+
+      <div class="row mb-3 g-2">
+        <div class="col">
+          <label class="form-label">State</label>
+          <input type="text" class="form-control" formControlName="state" />
+        </div>
+        <div class="col">
+          <label class="form-label">City</label>
+          <input type="text" class="form-control" formControlName="city" />
+        </div>
+        <div class="col">
+          <label class="form-label">Pin</label>
+          <input type="text" class="form-control" formControlName="pin" />
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" />
+    </div>
+    <div class="row col-md-3 mx-auto">
+      <button type="submit" class="btn btn-primary" (click)="handleRegister()">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

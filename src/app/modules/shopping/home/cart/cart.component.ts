@@ -1,6 +1,7 @@
 import { OnInit } from "@angular/core";
 import { Component } from "@angular/core";
-import { Route, Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { ApiService } from "src/app/services/api.service";
 import {
@@ -18,14 +19,13 @@ import {
 })
 export class CartComponent implements OnInit {
   cartProducts: any;
+  ans: any = JSON.parse(localStorage.getItem("cart-products")!);
   totalPrice: number = 0;
-  item!: {
-    productId: number;
-    name: string;
-    price: number;
-    qty: number;
-    subTotal: number;
-  };
+  temp: any = localStorage.getItem("customer-token" || null);
+  modalToggle = "Login";
+
+  loginForm!: FormGroup;
+  customerRegisterForm!: FormGroup;
 
   orders = {
     items: [],
@@ -37,7 +37,8 @@ export class CartComponent implements OnInit {
   constructor(
     private store: Store<{ cart: { cart: any; totalAmount: any } }>,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {
     this.store.select("cart").subscribe((data) => {
       this.cartProducts = data.cart;
@@ -48,16 +49,65 @@ export class CartComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.ans = JSON.parse(localStorage.getItem("cart-products")!);
+    console.log(this.ans);
     this.store.dispatch(sumUpTotalAmount());
-    this.getAddresses();
+    if (this.temp) {
+      this.getAddresses();
+    }
+    this.loginForm = this.fb.group({
+      email: ["sanket@yahoo.com", Validators.required],
+      password: ["sanket898", Validators.required],
+    });
+    this.customerRegisterForm = this.fb.group({
+      name: [""],
+      email: [""],
+      address: this.fb.group({
+        street: [""],
+        addressLine2: [""],
+        city: [""],
+        state: [""],
+        pin: [""],
+      }),
+      password: [""],
+    });
+  }
+  submitAuthForm() {
+    if (this.modalToggle === "Login") {
+      console.log(this.loginForm.value);
+      this.api.post("/shop/auth/login", this.loginForm.value).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          alert("Success!");
+          this.temp = localStorage.setItem("customer-token", res.token);
+          this.placeOrder();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      console.log(this.customerRegisterForm.value);
+      this.api
+        .post("/shop/auth/register", this.customerRegisterForm.value)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            alert("Do Login!");
+            this.router.navigate(["/cart"]);
+          },
+          error: (err) => {
+            console.log(err);
+            alert("Error");
+          },
+        });
+    }
   }
 
   getAddresses() {
     this.api.get("/customers/address").subscribe({
       next: (res: any) => {
-        console.log(res);
         this.orders.address = res[0];
-        console.log(this.orders);
       },
       error: (err) => {
         console.log(err);
@@ -84,23 +134,29 @@ export class CartComponent implements OnInit {
   }
 
   placeOrder() {
-    console.log(this.orders);
     let temp = localStorage.getItem("customer-token");
-    if (this.orders.items.length > 0 && temp) {
-      this.api.post("/shop/orders", this.orders).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          alert("Success!");
-          this.router.navigateByUrl(`customer/orders/payment/${res.order._id}`);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    } else if (!temp) {
-      alert("Please Login First...");
-    } else {
-      alert("Add Items to Cart!");
+    if (!this.orders.address) {
+      alert("Add address first");
     }
+    if (temp && this.orders.address) {
+      // this.api.post("/shop/orders", this.orders).subscribe({
+      //   next: (res: any) => {
+      //     console.log(res);
+      //     alert("Success!");
+      //     this.router.navigateByUrl(`customer/orders/payment/${res.order._id}`);
+      //   },
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
+      // });
+      this.router.navigateByUrl(`customer/orders/payment/${"fbsjfbsbfsfb"}`);
+    } else {
+    }
+  }
+  modalRegister() {
+    this.modalToggle = "Register";
+  }
+  modalLogin() {
+    this.modalToggle = "Login";
   }
 }

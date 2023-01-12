@@ -1,5 +1,5 @@
 <div class="container m-3 p-3">
-  <!-- <button class="btn btn-primary" (click)="cancelOrder()">Cancel Order</button> -->
+  <button class="btn btn-primary" (click)="cancelOrder()">Cancel Order</button>
   <div class="card mb-3" *ngFor="let order of orderDetails; let i = index">
     <h5 class="card-header">Order Details</h5>
     <div class="card-body">
@@ -30,17 +30,12 @@
       <p>Total : {{ order.subTotal }}</p>
     </div>
 
-    <div class="progress col-md-4 text-start">
-      <!-- <p>Progress</p> -->
-      <div
-        class="progress-bar bg-warning"
-        role="progressbar"
-        aria-label="Warning example"
-        style="width: 50%"
-        aria-valuenow="50"
-        aria-valuemin="0"
-        aria-valuemax="100"
-      ></div>
+    <div class="col-md-4 my-auto" *ngIf="order.status !== 'Cancelled'">
+      Progress:
+      <mat-progress-bar
+        mode="determinate"
+        value="{{ order.paymentStatus === 'Pending' ? 50 : 100 }}"
+      ></mat-progress-bar>
     </div>
   </div>
 </div>

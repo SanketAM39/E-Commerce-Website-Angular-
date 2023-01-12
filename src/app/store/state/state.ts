@@ -15,7 +15,7 @@ export interface Product {
   productId: string;
   name: string;
   description: string;
-  productAdded: boolean;
+
   images: { public_id: string; url: string }[];
   price: number;
   qty: number;

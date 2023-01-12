@@ -11,7 +11,6 @@ export class OrderDetailsComponent implements OnInit {
   orderId!: string;
   orderDetails: any;
   orderItems: any;
-  orderProgress: number = 0;
 
   constructor(
     private api: ApiService,
@@ -30,11 +29,6 @@ export class OrderDetailsComponent implements OnInit {
         console.log(res);
         this.orderDetails = res;
         this.orderItems = res[0].items;
-        if (this.orderDetails?.status === "Pending") {
-          this.orderProgress = 50;
-        } else {
-          this.orderProgress = 100;
-        }
       },
       error: (err) => {
         console.log(err);

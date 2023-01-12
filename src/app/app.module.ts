@@ -8,6 +8,7 @@ import { CommonInterceptor } from './services/Interceptor/common.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxPaginationModule } from 'ngx-pagination';
+
 import {
   FacebookLoginProvider,
   GoogleLoginProvider,

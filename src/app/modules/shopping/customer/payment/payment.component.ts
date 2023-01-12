@@ -12,7 +12,7 @@ export class PaymentComponent implements OnInit {
   orderId!: string;
   cardDetailsForm!: FormGroup;
   cardDetails: any = {
-    cardNumber: "5555555555554444",
+    cardNumber: "4000000000009995",
     nameOnCard: "Sanket Anandkar",
     expiry: "06/2023",
     cvv: "541",
@@ -47,7 +47,7 @@ export class PaymentComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-          alert("Error!");
+          alert(err.error.message);
         },
       });
   }

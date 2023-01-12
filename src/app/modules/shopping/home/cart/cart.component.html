@@ -51,7 +51,7 @@
             Wishlist
           </li>
 
-          <li class="dropdown-item" style="cursor: pointer">
+          <li class="dropdown-item" style="cursor: pointer" *ngIf="temp">
             <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
           </li>
         </ul>
@@ -82,7 +82,12 @@
       <h5>{{ totalPrice | currency : "INR" }}</h5>
     </div>
     <div>
-      <button class="btn btn-warning" (click)="placeOrder()">
+      <button
+        class="btn btn-warning"
+        (click)="placeOrder()"
+        attr.data-bs-toggle="{{ temp === null ? 'modal' : '' }}"
+        data-bs-target="#staticBackdrop"
+      >
         Place Order
       </button>
     </div>
@@ -131,6 +136,164 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between p-3 mb-0 align-items-center">
+        <h1
+          class="modal-title fs-5 ms-5"
+          id="staticBackdropLabel"
+          style="cursor: pointer"
+          (click)="modalLogin()"
+        >
+          Login
+        </h1>
+        <h1
+          class="modal-title fs-5 ms-5"
+          id="staticBackdropLabel"
+          style="cursor: pointer"
+          (click)="modalRegister()"
+        >
+          Register
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="modalToggle === 'Login'">
+          <form [formGroup]="loginForm" class="px-3">
+            <div class="row form-floating mb-3">
+              <input
+                class="form-control"
+                type="text"
+                formControlName="email"
+                placeholder="name@example.com"
+              />
+              <label class="form-label">Email Address</label>
+            </div>
+            <div class="row form-floating mb-3">
+              <input
+                class="form-control"
+                type="password"
+                formControlName="password"
+                placeholder="name@example.com"
+              />
+              <label class="form-label">Password</label>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="modalToggle === 'Register'">
+          <div [formGroup]="customerRegisterForm" class="form p-3">
+            <div class="row mb-3 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                placeholder="name@example.com"
+              />
+              <label class="form-label">Name</label>
+            </div>
+
+            <div class="row mb-3 form-floating">
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="name@example.com"
+              />
+              <label class="form-label">Email</label>
+            </div>
+
+            <div formGroupName="address">
+              <div class="row mb-3 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="street"
+                  placeholder="name@example.com"
+                />
+                <label class="form-label">Address Line 1</label>
+              </div>
+              <div class="row mb-3 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="addressLine2"
+                  placeholder="name@example.com"
+                />
+                <label class="form-label">Address Line 2</label>
+              </div>
+
+              <div class="row mb-3 g-2 form-floating">
+                <div class="col form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="state"
+                    placeholder="name@example.com"
+                  />
+                  <label class="form-label">State</label>
+                </div>
+                <div class="col form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="city"
+                    placeholder="name@example.com"
+                  />
+                  <label class="form-label">City</label>
+                </div>
+                <div class="col form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="pin"
+                    placeholder="name@example.com"
+                  />
+                  <label class="form-label">Pin</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3 form-floating">
+              <input
+                type="password"
+                class="form-control"
+                formControlName="password"
+                placeholder="name@example.com"
+              />
+              <label class="form-label">Password</label>
+            </div>
+          </div>
+        </div>
+        <div class="text-end">
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-dismiss="modal"
+            (click)="submitAuthForm()"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>
