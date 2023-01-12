@@ -21,7 +21,10 @@
 #temp:hover {
   color: black;
   background-color: #ffc72c;
-  border: 1px solid #ffc72c;
+  order: 1px solid #ffc72c;
+}
+#seller:hover {
+  color: #2296f3;
 }
 .dropdown-toggle::after {
   margin-left: 0.455em;

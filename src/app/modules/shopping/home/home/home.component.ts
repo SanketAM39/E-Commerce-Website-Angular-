@@ -1,27 +1,26 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { ApiService } from "src/app/services/api.service";
-import Swal from "sweetalert2";
-import { Store } from "@ngrx/store";
-import { addToCart } from "src/app/store/actions/actions";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
+import { Store } from '@ngrx/store';
+import { addToCart } from 'src/app/store/actions/actions';
+import { Router } from '@angular/router';
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   cartProducts: any;
   totalPrice: number = 0;
   cart = false;
-  cartLength: any = JSON.parse(localStorage.getItem("cart-products")!);
   products: any = [];
   itemsPerPage: number = 20;
   page: any = 1;
   totalPages!: number;
   changePasswordForm!: FormGroup;
 
-  temp: any = [];
+  temp: any = JSON.parse(localStorage.getItem('cart-status')!) || [];
 
   constructor(
     private api: ApiService,
@@ -31,26 +30,27 @@ export class HomeComponent implements OnInit {
       cart: { cart: any; totalAmount: any; productAdded: boolean };
     }>
   ) {
-    this.store.select("cart").subscribe((data) => {
-      // console.log(JSON.parse(localStorage.getItem("cart-products")!) || []);
-      // this.cartProducts =
-      //   JSON.parse(localStorage.getItem("cart-products")!) || [];
-      // this.cartProducts.push(data.cart);
+    this.store.select('cart').subscribe((data) => {
       this.cartProducts = data.cart;
       this.totalPrice = data.totalAmount;
     });
   }
 
-  token = localStorage.getItem("customer-token");
+  token = localStorage.getItem('customer-token');
   query = `?page=${this.page}&limit=${this.itemsPerPage}`;
 
   ngOnInit(): void {
     this.getProducts();
+    if (this.cartProducts.length === 0) {
+      localStorage.removeItem('cart-status');
+      this.temp = [];
+    }
+    console.log(this.cartProducts);
+    console.log(this.temp); //IMP
     this.changePasswordForm = this.fb.group({
-      old_password: [""],
-      new_password: [""],
+      old_password: [''],
+      new_password: [''],
     });
-    // console.log(this.cartLength);
   }
 
   getProducts() {
@@ -77,16 +77,16 @@ export class HomeComponent implements OnInit {
   }
   logOut() {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "Don't be Window Shopper!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Log Out!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Log Out!',
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("customer-token");
+        localStorage.removeItem('customer-token');
         window.location.reload();
       }
     });
@@ -94,16 +94,16 @@ export class HomeComponent implements OnInit {
 
   changePassword() {
     this.api
-      .post("/customers/auth/change-password", this.changePasswordForm.value)
+      .post('/customers/auth/change-password', this.changePasswordForm.value)
       .subscribe({
         next: (res) => {
           console.log(res);
           this.changePasswordForm.reset();
-          alert("Success!");
+          alert('Success!');
         },
         error: (err) => {
           console.log(err);
-          alert("Error!");
+          alert('Error!');
         },
       });
   }
@@ -127,15 +127,12 @@ export class HomeComponent implements OnInit {
 
   addToCart(Product: any, id: string) {
     this.store.dispatch(addToCart({ product: Product }));
-    // let temp = [];
-    // temp.push(Product);
-    // console.log(temp);
     console.log(Product);
-    // localStorage.setItem("cart-products", JSON.stringify(this.cartProducts));
     for (let i = 0; i < this.temp.length; i++) {
       if (this.temp[i]._id == Product._id) {
         this.temp[i].status = true;
       }
     }
+    localStorage.setItem('cart-status', JSON.stringify(this.temp));
   }
 }

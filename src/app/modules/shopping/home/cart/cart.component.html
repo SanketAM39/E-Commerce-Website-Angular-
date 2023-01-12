@@ -16,7 +16,7 @@
       </form>
     </div>
     <div>
-      <div class="dropdown me-5">
+      <div class="dropdown me-5" *ngIf="temp">
         <button
           id="temp"
           class="dropdown-toggle d-flex align-items-center justify-content-center"
@@ -51,7 +51,7 @@
             Wishlist
           </li>
 
-          <li class="dropdown-item" style="cursor: pointer" *ngIf="temp">
+          <li class="dropdown-item" style="cursor: pointer">
             <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
           </li>
         </ul>
@@ -131,7 +131,10 @@
               <div class="add-item me-3" (click)="increseProductCount(item)">
                 <i class="fa-solid fa-plus"></i>
               </div>
-              <p style="cursor: pointer" (click)="removeFromCart(item)">
+              <p
+                style="cursor: pointer; color: #2296f3"
+                (click)="removeFromCart(item)"
+              >
                 Remove Item
               </p>
             </div>
@@ -160,6 +163,7 @@
           class="modal-title fs-5 ms-5"
           id="staticBackdropLabel"
           style="cursor: pointer"
+          [ngStyle]="{ color: modalToggle === 'Login' ? '#2296f3' : 'black' }"
           (click)="modalLogin()"
         >
           Login
@@ -168,6 +172,9 @@
           class="modal-title fs-5 ms-5"
           id="staticBackdropLabel"
           style="cursor: pointer"
+          [ngStyle]="{
+            color: modalToggle === 'Register' ? '#2296f3' : 'black'
+          }"
           (click)="modalRegister()"
         >
           Register

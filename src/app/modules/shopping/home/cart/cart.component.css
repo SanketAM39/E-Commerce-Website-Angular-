@@ -1,3 +1,6 @@
+/* body {
+  max-height: 100vh;
+} */
 .navbar {
   display: flex;
   align-content: center;
@@ -59,4 +62,9 @@
   border: 1px solid #4158d0;
   border-radius: 5px;
   padding: 0.5rem 1rem;
+}
+#temp:hover {
+  color: black;
+  background-color: #ffc72c;
+  order: 1px solid #ffc72c;
 }

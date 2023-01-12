@@ -1,11 +1,11 @@
-import { ActivatedRoute } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
-import { ApiService } from "src/app/services/api.service";
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: "app-order-details",
-  templateUrl: "./order-details.component.html",
-  styleUrls: ["./order-details.component.css"],
+  selector: 'app-order-details',
+  templateUrl: './order-details.component.html',
+  styleUrls: ['./order-details.component.css'],
 })
 export class OrderDetailsComponent implements OnInit {
   orderId!: string;
@@ -32,20 +32,20 @@ export class OrderDetailsComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        alert("Error!");
+        alert('Error!');
       },
     });
   }
 
   cancelOrder() {
-    this.api.patch("/shop/orders/cancel/", this.orderId, null).subscribe({
+    this.api.patch('/shop/orders/cancel/', this.orderId, null).subscribe({
       next: (res) => {
         console.log(res);
-        alert("Order Cancelled ");
+        alert('Order Cancelled ');
       },
       error: (err) => {
         console.log(err);
-        alert("Error");
+        alert('Error');
       },
     });
   }
